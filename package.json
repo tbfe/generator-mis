@@ -1,0 +1,17 @@
+{
+  "name": "generator-mis",
+  "version": "0.1.0",
+  "description": "scaffold for tieba mis development",
+  "keywords": [
+    "yeoman-generator",
+    "tieba",
+    "mis",
+    "development",
+    "tool"
+  ],
+  "author": "wayou <liuwayong@gmail.com> (http://wayou.github.io/)",
+  "license": "MIT",
+  "dependencies": {
+    "yeoman-generator": "^0.18.0"
+  }
+}
