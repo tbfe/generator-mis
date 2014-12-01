@@ -12,6 +12,7 @@
   "author": "wayou <liuwayong@gmail.com> (http://wayou.github.io/)",
   "license": "MIT",
   "dependencies": {
+    "chalk": "^0.5.1",
     "yeoman-generator": "^0.18.0"
   }
 }
