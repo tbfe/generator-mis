@@ -20,39 +20,46 @@ var MisGenerator = yeoman.generators.Base.extend({
         // this.appname = this._.camelize(this.appname);
         // this.log(this.appname);
 
-        this.option('material', {
-            desc: 'will u wanna use material design theme?'
-        });
-        this.option('navnum', {
-            type: Number,
-            default: 5,
-            desc: 'how many menu items'
-        });
-        this.option('subtitle', {
-            type: String,
-            default: '',
-            desc: 'the subtitle of the site'
-        });
-        this.log(this.options.material ? 'generate theme with meterial design' : 'generate theme with normal bootstrap');
-        this.log('menu with ' + this.options.navnum);
-        this.log('and the subtitle is: ' + this.options.subtitle);
+        // this.option('material', {
+        //     desc: 'will u wanna use material design theme?'
+        // });
+        // this.option('navnum', {
+        //     type: Number,
+        //     default: 5,
+        //     desc: 'how many menu items'
+        // });
+        // this.option('subtitle', {
+        //     type: String,
+        //     default: '',
+        //     desc: 'the subtitle of the site'
+        // });
+        // this.log(this.options.material ? 'generate theme with meterial design' : 'generate theme with normal bootstrap');
+        // this.log('menu with ' + this.options.navnum);
+        // this.log('and the subtitle is: ' + this.options.subtitle);
     },
+    // Your initialization methods (checking current project state, getting configs, etc)
     initializing: function() {
         this.pkg = require('../package.json');
     },
-
+    // Where you prompt users for options (where you'd call this.prompt())
     prompting: function() {
         var done = this.async();
 
-        // Have Yeoman greet the user.
+        // the welcome screen
         this.log(yosay(
             'Welcome dude! You are using the TIEBA MIS GENERATOR. run ' + chalk.bold.yellow('yo mis --help') + ' for more help'
         ));
 
         var prompts = [{
             type: 'input',
+            name: 'author',
+            message: 'ur name:',
+            store: true
+            // default: 'tbfe'
+        }, {
+            type: 'input',
             name: 'projectName',
-            message: '项目名：',
+            message: '项目名(英文，将会用来生成angular主模块)：',
             default: this.appname
         }, {
             type: 'confirm',
@@ -61,13 +68,19 @@ var MisGenerator = yeoman.generators.Base.extend({
             default: true
         }];
 
-        this.prompt(prompts, function(props) {
-            this.someOption = props.someOption;
-
+        this.prompt(prompts, function() {
+            this.mis = {};
+            this.mis.author = anwsers.author;
+            this.log('the author name will be: ' + this.mis.author);
+            this.mis.projectName = anwsers.projectName;
+            this.log('the project name will be: ' + this.mis.projectName);
             done();
         }.bind(this));
     },
-
+    // Saving configurations and configure the project (creating .editorconfig files and other metadata files)
+    configuring: function() {},
+    default: function() {},
+    //Where you write the generator specific files (routes, controllers, etc)
     writing: {
         app: function() {
             this.dest.mkdir('app');
@@ -82,9 +95,15 @@ var MisGenerator = yeoman.generators.Base.extend({
             this.src.copy('jshintrc', '.jshintrc');
         }
     },
-
-    end: function() {
+    // Where conflicts are handled (used internally)
+    conflicts: function() {},
+    //Where installation are run (npm, bower)
+    install: function() {
         this.installDependencies();
+    },
+    //Called last, cleanup, say good bye, etc
+    end: function() {
+        this.log(chalk.yellow('All done!' + chalk.white('Happy coding \\(^____^)/')));
     }
 });
 
