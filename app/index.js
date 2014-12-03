@@ -3,12 +3,13 @@ var util = require('util');
 var path = require('path');
 var yeoman = require('yeoman-generator');
 var yosay = require('yosay');
+var chalk = require('chalk');
 
 var MisGenerator = yeoman.generators.Base.extend({
     // note: arguments and options should be defined in the constructor.
     constructor: function() {
-        generators.Base.apply(this, arguments);
-        // This makes `appname` a required argument.
+        yeoman.generators.Base.apply(this, arguments);
+        // //  This makes` appname` a required argument.
         // this.argument('appname', {
         //     type: String,
         //     required: true,
@@ -17,6 +18,24 @@ var MisGenerator = yeoman.generators.Base.extend({
         // });
         // // And you can then access it later on this way; e.g. CamelCased
         // this.appname = this._.camelize(this.appname);
+        // this.log(this.appname);
+
+        this.option('material', {
+            desc: 'will u wanna use material design theme?'
+        });
+        this.option('navnum', {
+            type: Number,
+            default: 5,
+            desc: 'how many menu items'
+        });
+        this.option('subtitle', {
+            type: String,
+            default: '',
+            desc: 'the subtitle of the site'
+        });
+        this.log(this.options.material ? 'generate theme with meterial design' : 'generate theme with normal bootstrap');
+        this.log('menu with ' + this.options.navnum);
+        this.log('and the subtitle is: ' + this.options.subtitle);
     },
     initializing: function() {
         this.pkg = require('../package.json');
@@ -27,7 +46,7 @@ var MisGenerator = yeoman.generators.Base.extend({
 
         // Have Yeoman greet the user.
         this.log(yosay(
-            'Welcome dude! 欢迎使用贴吧'
+            'Welcome dude! You are using the TIEBA MIS GENERATOR. run ' + chalk.bold.yellow('yo mis --help') + ' for more help'
         ));
 
         var prompts = [{
