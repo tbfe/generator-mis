@@ -4,9 +4,9 @@
 
 module.exports = {
 	//部署机器的HOST
-	'host': 'cq01-forum-rdtest14.vm.baidu.com',
-	'modName': 'uegmis',
-	'subModName': 'zhongshen',
+	'host': '<%= host %>',
+	'modName': '<%= modName %>',
+	'subModName': '<%= subModName %',
 	//静态端口
 	'staticPort': 8090,
 	//页面访问端口
