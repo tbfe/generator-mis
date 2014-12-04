@@ -21,11 +21,8 @@ fis.config.set('tbFisConfig', {
 //配置要合并的代码，即之前的__merge_conf.php配置的内容
 fis.config.merge({
 	pack : {
-		'static/zhongshen/app_all.js' :[
-			/static\/zhongshen\/.*.js/
-		],
-		'static/admin/app_all.js' :[
-			/static\/admin\/.*.js/
+		'static/<%= projectName %>/app_all.js' :[
+			/static\/<%= projectName %>\/.*.js/
 		]
 	}
 });

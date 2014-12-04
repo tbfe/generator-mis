@@ -1,0 +1,100 @@
+<div class="col-md-2 sidebar">
+    <div sidebar active="'activeItem'"></div>
+</div>
+<div class="col-md-10 main-wrapper">
+    <div class="search-wrapper row">
+        <p>{{info}}</p>
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <div class="col-sm-3">
+                    <div class="input-group">
+                        <div class="input-group-btn" style="width:100px;">
+                            <select class="form-control" name="" id="" ng-model="searchType">
+                                <option value="1">用户名</option>
+                                <option value="2">用户ID</option>
+                            </select>
+                        </div>
+                        <input class="form-control" id="startTime" type="text" ng-model="user_name" placeholder="用户名或用户ID">
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <button type="button" class="btn btn-primary" ng-click="search()">查询</button>
+                </div>
+                <div class="col-sm-8 text-right">
+                    <button type="button" class="btn btn-default" ng-click="addUser()">添加用户</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <table class="table list-table">
+        <thead>
+            <td>用户名</td>
+            <td>用户id</td>
+            <td>准确度</td>
+            <td>工作量</td>
+            <td>积分</td>
+            <td>权限</td>
+            <td>修改权限</td>
+            <td>审核记录</td>
+            <td>删除</td>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in dataSource.list">
+                <td>{{item.user_name}}</td>
+                <td>{{item.user_id}}</td>
+                <td>{{item.accuracy}}</td>
+                <td>{{item.workload}}</td>
+                <td>{{item.score}}</td>
+                <td>
+                    <label for="user_{{item.user_id}}_0">
+                        <input class="pass" type="radio" ng-model="item.user_type" ng-value="0" name="op_{{item.user_id}}" id="user_{{item.user_id}}_0" />
+                        无
+                    </label>
+                    <label for="user_{{item.user_id}}_1">
+                        <input class="pass" type="radio" ng-model="item.user_type" ng-value="1" name="op_{{item.user_id}}" id="user_{{item.user_id}}_1" />
+                        培训用户
+                    </label>
+                    <label for="user_{{item.user_id}}_2">
+                        <input class="pass" type="radio" ng-model="item.user_type" ng-value="2" name="op_{{item.user_id}}" id="user_{{item.user_id}}_2" />
+                        志愿者
+                    </label>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-default" ng-click="changeRole(item)">修改</button>
+                </td>
+                <td>
+                    <a class="btn btn-default" ng-href="#/user_log?user_id={{item.user_id}}" >查看</a>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger" ng-click="removeUser(item)">删除</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="text-right">
+        <pagination total-items="dataSource.page.data_total" page="dataSource.page.page_num" max-size="8" items-per-page="dataSource.page.page_size" boundary-links="true" rotate="false" on-select-page="changePage(page)" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;"
+        last-text="&raquo;">
+        </pagination>
+    </div>
+</div>
+
+<div class="modal fade" id="addUserDialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">添加用户</h4>
+            </div>
+            <div class="modal-body">
+                <form name="form">
+                    <p class="text-info">多个用户名请换行，每个一行，一次最多可以添加50个</p>
+                    <textarea style="width:100%;" name="usernames" ng-model="newUserNames" id="usernames" cols="30" rows="10" required></textarea>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" ng-click="confirmAddUser()" ng-disabled="form.$invalid">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
