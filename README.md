@@ -1,3 +1,5 @@
+生成贴吧MIS文件，基于Angular开发方案2.0
+
 # generator-mis [![Build Status](https://secure.travis-ci.org/wayou/generator-mis.png?branch=master)](https://travis-ci.org/wayou/generator-mis)
 
 > [Yeoman](http://yeoman.io) generator
