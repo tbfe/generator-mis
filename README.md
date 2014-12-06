@@ -56,3 +56,4 @@ MIT
 - [yeoman official documentation](http://yeoman.io/authoring/file-system.html)
 - [Inquirer.js](https://github.com/SBoudrias/Inquirer.js)
 - [yeoman generator jsdoc](http://yeoman.github.io/generator/file.html)
+- [AST-query](https://github.com/SBoudrias/ast-query#toc9)
