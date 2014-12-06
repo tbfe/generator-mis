@@ -47,3 +47,12 @@ If you'd like to get to know Yeoman better and meet some of his friends, [Grunt]
 ## License
 
 MIT
+
+
+## references
+
+- [Build Your Own Yeoman Generator](http://code.tutsplus.com/tutorials/build-your-own-yeoman-generator--cms-20040)
+- [underscore.string](https://github.com/epeli/underscore.string)
+- [yeoman official documentation](http://yeoman.io/authoring/file-system.html)
+- [Inquirer.js](https://github.com/SBoudrias/Inquirer.js)
+- [yeoman generator jsdoc](http://yeoman.github.io/generator/file.html)
