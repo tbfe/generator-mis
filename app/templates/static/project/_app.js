@@ -30,9 +30,9 @@ module.config([
             templateUrl: __uri('./views/view3/view3.html'),
             controller: 'view3Ctrl'
         })
-            .otherwise({
-                redirectTo: '/'
-            });
+        .otherwise({
+            redirectTo: '/'
+        });
     }
 ]);
 

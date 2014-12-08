@@ -2,10 +2,6 @@
   "name": "package",
   "version": "0.0.0",
   "dependencies": {
-    "bootstrap": "~3.2.0"
-    <% if(uiPlugins.indexOf('angular-material-design')>-1){ %>
-    ,"angular-material": "~0.6.0"
-    <% } %>
     <% if(uiPlugins.indexOf('sweetalert')>-1){ %>
     "sweetalert": "~0.3.2"
     <% } %>

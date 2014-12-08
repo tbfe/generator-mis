@@ -388,8 +388,12 @@ module.exports = yeoman.generators.Base.extend({
         // }
 
         //store user configuration
-        this.config.save();
+        this.config.set('author',this.mis.author);
+        this.config.set('projectName',this.mis.projectName);
+
+        this.log(this.config);
+
         //say goodbye
-        this.log(chalk.green('All done!') + chalk.blue('You are ready to go') + '\n' + chalk.green('HAPPY CODING \\(^____^)/'));
+        this.log(chalk.green('All done!') + chalk.white('You are ready to go') + '\n' + chalk.green('HAPPY CODING \\(^____^)/'));
     }
 });
