@@ -1,10 +1,10 @@
 {
   "name": "generator-mis",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "百度贴吧MIS生成器",
   "license": "MIT",
   "main": "app/index.js",
-  "repository": "wayou/generator-mis",
+  "repository": "tbfe/generator-mis",
   "author": {
     "name": "Wayou Liu",
     "email": "liuwayong@gmail.com",

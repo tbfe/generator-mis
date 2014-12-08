@@ -395,10 +395,9 @@ module.exports = yeoman.generators.Base.extend({
         this.config.set('author', this.mis.author);
         this.config.set('projectName', this.mis.projectName);
 
-        this.log(this.config);
-
         //ignore bower_components folder
-        this.spawnCommand('svn propset svn:ignore bower_components .');
+        //在ocean机器上会执行失败，先去掉
+        // this.spawnCommand('svn propset svn:ignore bower_components .');
 
         //say goodbye
         this.log(chalk.green('All done!') + chalk.white('You are ready to go') + '\n' + chalk.green('HAPPY CODING \\(^____^)/'));
