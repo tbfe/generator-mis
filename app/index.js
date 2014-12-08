@@ -160,12 +160,15 @@ module.exports = yeoman.generators.Base.extend({
                         return true;
                     }
                 }.bind(this)
-            }, {
-                type: 'confirm',
-                name: 'isSidebar',
-                message: '需要生成侧边菜单么？',
-                default: true
             }
+            //默认生成吧，之后做成主题，由主题来决定是否有侧边菜单
+            // , {
+            //     type: 'confirm',
+            //     name: 'isSidebar',
+            //     message: '需要生成侧边菜单么？',
+            //     default: true
+            // }
+
             // , {
             //     type: 'list',
             //     name: 'uiFramework',
@@ -301,25 +304,26 @@ module.exports = yeoman.generators.Base.extend({
                     projectName: this._.camelize(this.mis.projectName)
                 }
             );
-            //sidebar directive
-            if (this.mis.isSidebar) {
-                //sidebar.html
-                this.fs.copy(
-                    this.templatePath('static/project/directives/sidebar/_sidebar.html'),
-                    this.destinationPath('static/' + fileBase + '/directives/sidebar/sidebar.html')
-                );
+            //sidebar directive 
+            //默认启用侧边菜单 
+            // if (this.mis.isSidebar) {
+            //sidebar.html
+            this.fs.copy(
+                this.templatePath('static/project/directives/sidebar/_sidebar.html'),
+                this.destinationPath('static/' + fileBase + '/directives/sidebar/sidebar.html')
+            );
 
-                //sidebar.js
-                this.fs.copyTpl(
-                    this.templatePath('static/project/directives/sidebar/_sidebar.js'),
-                    this.destinationPath('static/' + fileBase + '/directives/sidebar/sidebar.js'), {
-                        projectName: this._.camelize(this.mis.projectName)
-                    }
-                );
+            //sidebar.js
+            this.fs.copyTpl(
+                this.templatePath('static/project/directives/sidebar/_sidebar.js'),
+                this.destinationPath('static/' + fileBase + '/directives/sidebar/sidebar.js'), {
+                    projectName: this._.camelize(this.mis.projectName)
+                }
+            );
 
-            } else {
-                this.mkdir('static/' + fileBase + '/directives');
-            }
+            // } else {
+            //    this.mkdir('static/' + fileBase + '/directives');
+            //}
 
             // sample views
             for (var i = 3; i >= 1; i--) {
