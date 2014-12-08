@@ -2,46 +2,47 @@
 
 # generator-mis [![Build Status](https://secure.travis-ci.org/wayou/generator-mis.png?branch=master)](https://travis-ci.org/wayou/generator-mis)
 
-> [Yeoman](http://yeoman.io) generator
+### 没听过Yeoman?
 
-
-## Getting Started
-
-### What is Yeoman?
-
-Trick question. It's not a thing. It's this guy:
+去[这里](http://yeoman.io/)了解一下:)
 
 ![](http://i.imgur.com/JHaAlBJ.png)
 
-Basically, he wears a top hat, lives in your computer, and waits for you to tell him what kind of application you wish to create.
 
-Not every new computer comes with a Yeoman pre-installed. He lives in the [npm](https://npmjs.org) package repository. You only have to ask for him once, then he packs up and moves into your hard drive. *Make sure you clean up, he likes new and shiny things.*
+## 安装
+
+首先安装yeoman
 
 ```bash
 npm install -g yo
 ```
 
-### Yeoman Generators
-
-Yeoman travels light. He didn't pack any generators when he moved in. You can think of a generator like a plug-in. You get to choose what type of application you wish to create, such as a Backbone application or even a Chrome extension.
-
-To install generator-mis from npm, run:
+然后安装本生成器
 
 ```bash
 npm install -g generator-mis
 ```
 
-Finally, initiate the generator:
+## 使用
+
+### 生成项目
+
+在模块根目录执行：
 
 ```bash
 yo mis
 ```
 
-### Getting To Know Yeoman
+然后，请跟随贴心制作好的向导一步一步来。
 
-Yeoman has a heart of gold. He's a person with feelings and opinions, but he's very easy to work with. If you think he's too opinionated, he can be easily convinced.
+### 生成一个view
 
-If you'd like to get to know Yeoman better and meet some of his friends, [Grunt](http://gruntjs.com) and [Bower](http://bower.io), check out the complete [Getting Started Guide](https://github.com/yeoman/yeoman/wiki/Getting-Started).
+在模块根目录执行：
+
+```bash
+yo mis:view <view名>
+```
+再也不用手动去创建勒！
 
 
 ## License

@@ -12,7 +12,7 @@ module.exports = yeoman.generators.Base.extend({
 
         // Have Yeoman greet the user.
         this.log(yosay(
-            'Welcome dude!' + chalk.yellow('TIEBA MIS GENERATOR')
+            chalk.yellow('TIEBA MIS GENERATOR')
         ));
 
         this.mis = {};
