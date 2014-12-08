@@ -116,7 +116,16 @@ module.exports = yeoman.generators.Base.extend({
                 when: function(anwsers) {
                     return !anwsers.singleMod;
                 },
-                default: this.mis.modName
+                default: this.mis.modName,
+                validate: function(input) {
+                    this.log(this.mis.modName);
+                    //如果是新模块，此字段为必需
+                    if (!this.mis.modName && !input) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }.bind(this)
             }, {
                 type: 'input',
                 name: 'modName',
@@ -124,7 +133,16 @@ module.exports = yeoman.generators.Base.extend({
                 when: function(anwsers) {
                     return anwsers.singleMod;
                 },
-                default: this.mis.modName
+                default: this.mis.modName,
+                validate: function(input) {
+                    this.log(this.mis.modName);
+                    //如果是新模块，此字段为必需
+                    if (!this.mis.modName && !input) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }.bind(this)
             }, {
                 type: 'input',
                 name: 'subModName',
@@ -132,12 +150,34 @@ module.exports = yeoman.generators.Base.extend({
                 default: this.mis.subModName,
                 when: function(anwsers) {
                     return anwsers.singleMod;
-                }
+                },
+                validate: function(input) {
+                    this.log(this.mis.subModName);
+                    //如果是新模块，且选择了有父子模块，则此字段也是必需的
+                    if (!this.mis.subModName && !input) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }.bind(this)
             }, {
                 type: 'confirm',
                 name: 'isSidebar',
                 message: '需要生成侧边菜单么？',
                 default: true
+            }
+            // , {
+            //     type: 'list',
+            //     name: 'uiFramework',
+            //     choices: ['bootstrap', 'angular-material-design (较新，如果你想尝试的话)'],
+            //     message: '请选择UI框架',
+            //     default: 'bootstrap'
+            // }
+            , {
+                type: 'checkbox',
+                name: 'uiPlugins',
+                choices: ['sweetalert', 'animate.css'],
+                message: '以下插件按需选择'
             }
         ];
 
@@ -146,20 +186,22 @@ module.exports = yeoman.generators.Base.extend({
             this.mis.date = new Date().toISOString().substring(0, 10);
             //如果先把了无父子模块，防止subModName可能会为undefined
             this.mis.subModName = this.mis.subModName || '';
+            
             done();
         }.bind(this));
     },
 
     writing: {
         app: function() {
-            // this.fs.copy(
-            //     this.templatePath('_package.json'),
-            //     this.destinationPath('package.json')
-            // );
-            // this.fs.copy(
-            //     this.templatePath('_bower.json'),
-            //     this.destinationPath('bower.json')
-            // );
+            this.fs.copy(
+                this.templatePath('_package.json'),
+                this.destinationPath('package.json')
+            );
+            this.fs.copyTpl(
+                this.templatePath('_bower.json'),
+                this.destinationPath('bower.json'),
+                this.mis
+            );
         },
 
         projectfiles: function() {
@@ -228,7 +270,8 @@ module.exports = yeoman.generators.Base.extend({
                     date: this.mis.date,
                     author: this.mis.author,
                     projectName: this._.humanize(this.mis.projectName),
-                    modName: this.mis.modName
+                    modName: this.mis.modName,
+                    uiPlugins: this.mis.uiPlugins
                 }
             );
             //template/index.js
@@ -296,16 +339,57 @@ module.exports = yeoman.generators.Base.extend({
                         index: i
                     }
                 );
-            };
+            }
         }
     },
 
     install: function() {
-        // this.installDependencies({
-        //     skipInstall: this.options['skip-install']
-        // });
+        this.installDependencies({
+            skipInstall: this.options['skip-install']
+        });
     },
     end: function() {
+        //将bower安装的文件复制到lib下
+        //sweetalert插件
+        if (this.mis.uiPlugins.indexOf('sweetalert') > -1) {
+            this.fs.copy(
+                this.destinationPath('bower_components/sweetalert/lib/sweet-alert.css'),
+                this.destinationPath('static/libs/sweetalert/sweet_alert.css')
+            );
+            this.fs.copy(
+                this.destinationPath('bower_components/sweetalert/lib/sweet-alert.js'),
+                this.destinationPath('static/libs/sweetalert/sweet_alert.js')
+            );
+        }
+
+        //animate.css插件
+        if (this.mis.uiPlugins.indexOf('animate.css') > -1) {
+            this.fs.copy(
+                this.destinationPath('bower_components/animate.css/animate.css'),
+                this.destinationPath('static/libs/animate.css')
+            );
+        }
+
+        //angularjs material design
+        //因为angular material design还没正式发版，先不加进来
+        // if (this.mis.uiPlugins.indexOf('angular-material-design') > -1) {
+        //     this.fs.copy(
+        //         this.destinationPath('bower_components/angular/angular.js'),
+        //         this.destinationPath('static/libs/angularjs/angular.js')
+        //     );
+        //      this.fs.copy(
+        //         this.destinationPath('bower_components/angular-animate/angular-animate.js'),
+        //         this.destinationPath('static/libs/angularjs/angular-animate.js')
+        //     );
+        //      this.fs.copy(
+        //         this.destinationPath('bower_components/angular-animate/angular-animate.js'),
+        //         this.destinationPath('static/libs/angularjs/angular-animate.js')
+        //     );
+        // }
+
+        //store user configuration
+        this.config.save();
+        //say goodbye
         this.log(chalk.green('All done!') + chalk.blue('You are ready to go') + '\n' + chalk.green('HAPPY CODING \\(^____^)/'));
     }
 });

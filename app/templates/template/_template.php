@@ -11,10 +11,19 @@
     <title><%= projectName %></title>
     <link rel="shortcut icon" href="http://static.tieba.baidu.com/tb/favicon.ico" />
     <?php
-      echo HTML::combocss(array('devplatcommon/lib/bootstrap/bootstrap.css',
-      //本项目css
-      '<%= modName %>/libs/sweetalert/sweet_alert.css',
-      '<%= modName %>/template/admin/index.css'));
+      echo HTML::combocss(array(
+        'devplatcommon/lib/bootstrap/bootstrap.css',
+        <% if(uiPlugins.indexOf('sweetalert')>-1){ %>
+        //sweetalert插件 doc:http://tristanedwards.me/sweetalert
+        '<%= modName %>/libs/sweetalert/sweet_alert.css',
+        <% } %>
+        <% if(uiPlugins.indexOf('animate.css')>-1){ %>
+        //animate.css插件 doc:http://daneden.github.io/animate.css/
+        '<%= modName %>/libs/animate.css',
+        <% } %>
+        //本项目css 文件
+        '<%= modName %>/template/admin/index.css'
+      ));
     ?>
     <?php
       echo HTML::combojs(array(
@@ -22,16 +31,21 @@
         'devplatcommon/lib/require/require.js'));
 
       echo HTML::combojs(array(
+        //使用传统bootstrap布局
         'devplatcommon/lib/angular/angular.js',
         'devplatcommon/lib/angular/angular-resource.js',
         'devplatcommon/lib/angular/angular-route.js', 
         'devplatcommon/lib/angular/angular-sanitize.js',
         'devplatcommon/lib/angular/ui-bootstrap.js',
-        'devplatcommon/js/ng_common/ng_common.js', 
         'devplatcommon/lib/bootstrap/bootstrap.js',
+        //内部平台公共库
+        'devplatcommon/js/ng_common/ng_common.js', 
 
         //本项目的插件,其他文件类似这样引入即可
+        <% if(uiPlugins.indexOf('sweetalert')>-1){ %>
+        //sweetalert插件 doc:http://tristanedwards.me/sweetalert
         '<%= modName %>/libs/sweetalert/sweet_alert.js',
+        <% } %>
         '<%= modName %>/template/admin/index.js',
         '<%= modName %>/js/foo.js'
       ));
