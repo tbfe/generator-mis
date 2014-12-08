@@ -186,7 +186,7 @@ module.exports = yeoman.generators.Base.extend({
             this.mis.date = new Date().toISOString().substring(0, 10);
             //如果先把了无父子模块，防止subModName可能会为undefined
             this.mis.subModName = this.mis.subModName || '';
-            
+
             done();
         }.bind(this));
     },
@@ -388,10 +388,13 @@ module.exports = yeoman.generators.Base.extend({
         // }
 
         //store user configuration
-        this.config.set('author',this.mis.author);
-        this.config.set('projectName',this.mis.projectName);
+        this.config.set('author', this.mis.author);
+        this.config.set('projectName', this.mis.projectName);
 
         this.log(this.config);
+
+        //ignore bower_components folder
+        this.spawnCommand('svn propset svn:ignore bower_components .');
 
         //say goodbye
         this.log(chalk.green('All done!') + chalk.white('You are ready to go') + '\n' + chalk.green('HAPPY CODING \\(^____^)/'));
