@@ -1,7 +1,7 @@
 
 # 贴吧MIS生成器
 
-生成贴吧MIS文件，基于Angular开发方案2.0
+生成贴吧MIS文件，基于[Angular开发方案2.0](http://jsbear.baidu.com/2014/11/12/angularjs-new-dev-pattern/)
 
 ### 没听过Yeoman?
 
