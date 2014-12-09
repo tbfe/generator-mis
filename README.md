@@ -50,6 +50,19 @@ yo mis:view <view名>
 ```
 再也不用手动去创建勒！
 
+## 主题
+
+目前只一个默认主题，之后会将之前进行过的项目进行抽取总结出更多主题可供选择。
+
+![default theme](asset/default_theme.jpg)
+
+## 插件
+
+前端插件通过bower安装，目前仅包含以下插件，有需要再完善添加.
+
+- [sweetalert](http://tristanedwards.me/sweetalert)
+- [animate.css](http://daneden.github.io/animate.css/)
+
 ## License
 
 MIT
