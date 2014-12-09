@@ -50,7 +50,7 @@ yo mis:view <view名>
 MIT
 
 
-## references
+## References
 
 - [Build Your Own Yeoman Generator](http://code.tutsplus.com/tutorials/build-your-own-yeoman-generator--cms-20040)
 - [underscore.string](https://github.com/epeli/underscore.string)
