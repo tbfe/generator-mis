@@ -23,12 +23,12 @@ module.config([
         //view2
         .when('/view2', {
             templateUrl: __uri('./views/view2/view2.html'),
-            controller: 'View3Ctrl'
+            controller: 'View2Ctrl'
         })
         //view3
         .when('/view3', {
             templateUrl: __uri('./views/view3/view3.html'),
-            controller: 'view3Ctrl'
+            controller: 'View3Ctrl'
         })
         .otherwise({
             redirectTo: '/'

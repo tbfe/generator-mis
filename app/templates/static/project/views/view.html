@@ -1,9 +1,10 @@
 <div class="col-md-2 sidebar">
-    <div sidebar active="'activeItem'"></div>
+    <div sidebar active="'<%= viewName %>'"></div>
 </div>
 <div class="col-md-10 main-wrapper">
     <div class="search-wrapper row">
-        <p>{{info}}</p>
+        <h1>{{info}}</h1>
+        <% if(viewName=='view1'){ %>
         <form class="form-horizontal" role="form">
             <div class="form-group">
                 <div class="col-sm-3">
@@ -76,25 +77,5 @@
         last-text="&raquo;">
         </pagination>
     </div>
-</div>
-
-<div class="modal fade" id="addUserDialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title">添加用户</h4>
-            </div>
-            <div class="modal-body">
-                <form name="form">
-                    <p class="text-info">多个用户名请换行，每个一行，一次最多可以添加50个</p>
-                    <textarea style="width:100%;" name="usernames" ng-model="newUserNames" id="usernames" cols="30" rows="10" required></textarea>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary" ng-click="confirmAddUser()" ng-disabled="form.$invalid">确认</button>
-            </div>
-        </div>
-    </div>
+    <% } %>
 </div>

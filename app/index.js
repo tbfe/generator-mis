@@ -331,9 +331,11 @@ module.exports = yeoman.generators.Base.extend({
             // sample views
             for (var i = 3; i >= 1; i--) {
                 //view template
-                this.fs.copy(
+                this.fs.copyTpl(
                     this.templatePath('static/project/views/view.html'),
-                    this.destinationPath('static/' + fileBase + '/views/view' + i + '/view' + i + '.html')
+                    this.destinationPath('static/' + fileBase + '/views/view' + i + '/view' + i + '.html'), {
+                        viewName: 'view' + i
+                    }
                 );
                 //view controller
                 this.fs.copyTpl(
@@ -344,7 +346,7 @@ module.exports = yeoman.generators.Base.extend({
                         resourceName: this._.classify(this.mis.projectName),
                         projectName: this._.camelize(this.mis.projectName),
                         index: i,
-                        viewName:'View'+i+'Ctrl'
+                        controllerName: 'View' + i + 'Ctrl'
                     }
                 );
             }
