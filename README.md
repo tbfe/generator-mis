@@ -9,6 +9,12 @@
 
 ![](http://i.imgur.com/JHaAlBJ.png)
 
+## 开始之前
+
+在开始使用前，请确保你已经全局安装以下组件：
+- [bower](http://bower.io/) `npm install -g bower`
+- [grunt-cli](http://gruntjs.com/) `npm install -g grunt-cli`
+
 ## 安装
 
 首先安装yeoman
