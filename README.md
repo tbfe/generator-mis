@@ -1,13 +1,13 @@
-生成贴吧MIS文件，基于Angular开发方案2.0
 
-# generator-mis
+# 贴吧MIS生成器
+
+生成贴吧MIS文件，基于Angular开发方案2.0
 
 ### 没听过Yeoman?
 
 去[这里](http://yeoman.io/)了解一下:)
 
 ![](http://i.imgur.com/JHaAlBJ.png)
-
 
 ## 安装
 
@@ -44,11 +44,9 @@ yo mis:view <view名>
 ```
 再也不用手动去创建勒！
 
-
 ## License
 
 MIT
-
 
 ## References
 

@@ -43,7 +43,6 @@ module.exports = yeoman.generators.Base.extend({
             //进一步检测control文件夹下存在哪些项目，用于后面项目重名时的覆盖提示
             this.existedProjects = [];
             var controlFiles = this.expand(this.destinationPath('control/*.php'));
-
             controlFiles.forEach(function(v, i, a) {
                 this.existedProjects.push(this._.chain(v).strRightBack('/').strLeftBack('.php').underscored().value());
             }.bind(this));
@@ -249,12 +248,15 @@ module.exports = yeoman.generators.Base.extend({
                 this.mis
             );
             //fis-conf.js
-            this.fs.copyTpl(
-                this.templatePath('fis-conf.js'),
-                this.destinationPath('fis-conf.js'), {
-                    projectName: fileBase
-                }
-            );
+            //如果不是新模块，为了避免覆盖原来的fis-conf.js文件，则不复制
+            if (!this.existedProjects) {
+                this.fs.copyTpl(
+                    this.templatePath('fis-conf.js'),
+                    this.destinationPath('fis-conf.js'), {
+                        projectName: fileBase
+                    }
+                );
+            }
 
             //control
             this.fs.copyTpl(
@@ -273,6 +275,7 @@ module.exports = yeoman.generators.Base.extend({
                     date: this.mis.date,
                     author: this.mis.author,
                     projectName: this._.humanize(this.mis.projectName),
+                    projectFoler: fileBase,
                     modName: this.mis.modName,
                     uiPlugins: this.mis.uiPlugins
                 }

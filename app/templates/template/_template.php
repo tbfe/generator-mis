@@ -91,7 +91,7 @@
   /**
    * 如下代码用将由框架负责处理js资源加载到页面
    */
-  echo HTML::js('<%= projectName %>/app_all.js', "<%= modName %>");
+  echo HTML::js('<%= projectFoler %>/app_all.js', "<%= modName %>");
   ?>
 
   <?php
