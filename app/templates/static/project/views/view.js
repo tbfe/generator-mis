@@ -2,7 +2,7 @@
  * @author <%= author %>
  * @date <%= date %>
  */
-angular.module('<%= projectName %>').controller('UsersCtrl', [
+angular.module('<%= projectName %>').controller('<%= viewName %>', [
     '$scope',
     '$location',
     '$route',

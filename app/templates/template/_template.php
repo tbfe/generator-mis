@@ -62,7 +62,7 @@
               <span class="icon-bar"></span>
             </button>
             <a href="#" class="navbar-brand">
-              <img class="logo" style="height:25px;vertical-align:middle" src="../../static/img/zhongshen/tb_logo.png" >
+              <img class="logo" style="height:25px;vertical-align:middle" src="http://tieba.baidu.com/tb/static-common/img/search_logo_7835b03.png" >
               <span class="logo-text" style="vertical-align:middle">|<%= projectName %></span>
             </a>
           </div>

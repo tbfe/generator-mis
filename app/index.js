@@ -343,7 +343,8 @@ module.exports = yeoman.generators.Base.extend({
                         author: this.mis.author,
                         resourceName: this._.classify(this.mis.projectName),
                         projectName: this._.camelize(this.mis.projectName),
-                        index: i
+                        index: i,
+                        viewName:'View'+i+'Ctrl'
                     }
                 );
             }
