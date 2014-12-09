@@ -1,4 +1,4 @@
-angular.module('<%= projectName %>').controller('UsersCtrl', [
+angular.module('<%= projectName %>').controller('<%= name %>', [
     '$scope',
     '$location',
     '$route',

@@ -307,6 +307,17 @@ module.exports = yeoman.generators.Base.extend({
                     projectName: this._.camelize(this.mis.projectName)
                 }
             );
+
+            //filter file
+            this.fs.copyTpl(
+                this.templatePath('static/project/filters/_filter.js'),
+                this.destinationPath('static/' + fileBase + '/filters/filter.js'), {
+                    date: this.mis.date,
+                    author: this.mis.author,
+                    resourceName: this._.classify(this.mis.projectName),
+                    projectName: this._.camelize(this.mis.projectName)
+                }
+            );
             //sidebar directive 
             //默认启用侧边菜单 
             // if (this.mis.isSidebar) {
@@ -323,7 +334,6 @@ module.exports = yeoman.generators.Base.extend({
                     projectName: this._.camelize(this.mis.projectName)
                 }
             );
-
             // } else {
             //    this.mkdir('static/' + fileBase + '/directives');
             //}

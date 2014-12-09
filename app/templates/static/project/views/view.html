@@ -21,53 +21,29 @@
                 <div class="col-sm-1">
                     <button type="button" class="btn btn-primary" ng-click="search()">查询</button>
                 </div>
-                <div class="col-sm-8 text-right">
-                    <button type="button" class="btn btn-default" ng-click="addUser()">添加用户</button>
-                </div>
             </div>
         </form>
     </div>
     <table class="table list-table">
         <thead>
+            <td>#</td>
             <td>用户名</td>
-            <td>用户id</td>
-            <td>准确度</td>
-            <td>工作量</td>
             <td>积分</td>
             <td>权限</td>
-            <td>修改权限</td>
-            <td>审核记录</td>
-            <td>删除</td>
+            <td>操作</td>
         </thead>
         <tbody>
-            <tr ng-repeat="item in dataSource.list">
-                <td>{{item.user_name}}</td>
-                <td>{{item.user_id}}</td>
-                <td>{{item.accuracy}}</td>
-                <td>{{item.workload}}</td>
+            <tr ng-repeat="item in dummyData">
+                <td>{{item.id}}</td>
+                <td>{{item.user_name|truncate:15}}</td>
                 <td>{{item.score}}</td>
+                <td>{{item.membership|isMembership}}</td>
                 <td>
-                    <label for="user_{{item.user_id}}_0">
-                        <input class="pass" type="radio" ng-model="item.user_type" ng-value="0" name="op_{{item.user_id}}" id="user_{{item.user_id}}_0" />
-                        无
-                    </label>
-                    <label for="user_{{item.user_id}}_1">
-                        <input class="pass" type="radio" ng-model="item.user_type" ng-value="1" name="op_{{item.user_id}}" id="user_{{item.user_id}}_1" />
-                        培训用户
-                    </label>
-                    <label for="user_{{item.user_id}}_2">
-                        <input class="pass" type="radio" ng-model="item.user_type" ng-value="2" name="op_{{item.user_id}}" id="user_{{item.user_id}}_2" />
-                        志愿者
-                    </label>
-                </td>
-                <td>
-                    <button type="button" class="btn btn-default" ng-click="changeRole(item)">修改</button>
-                </td>
-                <td>
-                    <a class="btn btn-default" ng-href="#/user_log?user_id={{item.user_id}}" >查看</a>
-                </td>
-                <td>
-                    <button type="button" class="btn btn-danger" ng-click="removeUser(item)">删除</button>
+                   <div class="btn-group" role="group" aria-label="...">
+                      <button type="button" class="btn btn-default" ng-click="detail(item.id)">详情</button>
+                      <button type="button" class="btn btn-primary" ng-click="edit(item.id)">修改</button>
+                      <button type="button" class="btn btn-danger" ng-click="remove(item.id)">删除</button>
+                    </div>
                 </td>
             </tr>
         </tbody>
