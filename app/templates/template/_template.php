@@ -22,7 +22,7 @@
         '<%= modName %>/libs/animate.css',
         <% } %>
         //本项目css 文件
-        '<%= modName %>/template/admin/index.css'
+        '<%= modName %>/template/<%= projectFoler %>/index.css'
       ));
     ?>
     <?php
