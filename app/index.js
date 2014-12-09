@@ -12,8 +12,10 @@ module.exports = yeoman.generators.Base.extend({
 
         // Have Yeoman greet the user.
         this.log(yosay(
-            chalk.yellow('TIEBA MIS GENERATOR')
+            chalk.yellow('TIEBA MIS GENERATOR ')
         ));
+
+        this.log('need help? go and open issue: https://github.com/tbfe/generator-mis/issues/new');
 
         this.mis = {};
         this.pkg = require('../package.json');
@@ -285,6 +287,12 @@ module.exports = yeoman.generators.Base.extend({
                 this.templatePath('template/_template.js'),
                 this.destinationPath('template/' + fileBase + '/index.js')
             );
+            //template/index.css
+            this.fs.copy(
+                this.templatePath('template/_template.css'),
+                this.destinationPath('template/' + fileBase + '/index.css')
+            );
+
             //angular app.js
             this.fs.copyTpl(
                 this.templatePath('static/project/_app.js'),
@@ -359,6 +367,7 @@ module.exports = yeoman.generators.Base.extend({
                         controllerName: 'View' + i + 'Ctrl'
                     }
                 );
+
             }
         }
     },
@@ -368,10 +377,16 @@ module.exports = yeoman.generators.Base.extend({
             skipInstall: this.options['skip-install']
         });
     },
-    end: function() {
+    copyBowerFiles: function() {
+
+        //just cant get the copy works in the end queue, so weird
+        //so create this `copyBowerFiles` queue for the bower files copying task
+
         //将bower安装的文件复制到lib下
         //sweetalert插件
         if (this.mis.uiPlugins.indexOf('sweetalert') > -1) {
+            //let the users what's going on
+            this.log('复制bower文件 sweetalert ...');
             this.fs.copy(
                 this.destinationPath('bower_components/sweetalert/lib/sweet-alert.css'),
                 this.destinationPath('static/libs/sweetalert/sweet_alert.css')
@@ -380,14 +395,17 @@ module.exports = yeoman.generators.Base.extend({
                 this.destinationPath('bower_components/sweetalert/lib/sweet-alert.js'),
                 this.destinationPath('static/libs/sweetalert/sweet_alert.js')
             );
+            this.log('复制bower文件 sweetalert 完成！');
         }
 
         //animate.css插件
         if (this.mis.uiPlugins.indexOf('animate.css') > -1) {
+            this.log('复制bower文件 animate.css ...');
             this.fs.copy(
                 this.destinationPath('bower_components/animate.css/animate.css'),
                 this.destinationPath('static/libs/animate.css')
             );
+            this.log('复制bower文件 animate.css 完成！');
         }
 
         //angularjs material design
@@ -406,7 +424,10 @@ module.exports = yeoman.generators.Base.extend({
         //         this.destinationPath('static/libs/angularjs/angular-animate.js')
         //     );
         // }
-
+        
+    },
+    end: function() {
+        
         //store user configuration
         this.config.set('author', this.mis.author);
         this.config.set('projectName', this.mis.projectName);
@@ -416,6 +437,6 @@ module.exports = yeoman.generators.Base.extend({
         // this.spawnCommand('svn propset svn:ignore bower_components .');
 
         //say goodbye
-        this.log(chalk.green('All done!') + chalk.white('You are ready to go') + '\n' + chalk.green('HAPPY CODING \\(^____^)/'));
+        this.log(chalk.green('All done!\n') + chalk.white('You are ready to go') + '\n' + chalk.green('HAPPY CODING \\(^____^)/'));
     }
 });
