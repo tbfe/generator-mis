@@ -46,7 +46,7 @@
         //sweetalert插件 doc:http://tristanedwards.me/sweetalert
         '<%= modName %>/libs/sweetalert/sweet_alert.js',
         <% } %>
-        '<%= modName %>/template/admin/index.js',
+        '<%= modName %>/template/<%= projectFoler %>/index.js',
         '<%= modName %>/js/foo.js'
       ));
     ?>
