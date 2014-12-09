@@ -206,6 +206,12 @@ module.exports = yeoman.generators.Base.extend({
                 this.destinationPath('bower.json'),
                 this.mis
             );
+            this.fs.copyTpl(
+                this.templatePath('_gruntfile.js'),
+                this.destinationPath('Gruntfile.js'), {
+                    uiPlugins: this.mis.uiPlugins
+                }
+            );
         },
 
         projectfiles: function() {
@@ -376,58 +382,40 @@ module.exports = yeoman.generators.Base.extend({
         this.installDependencies({
             skipInstall: this.options['skip-install']
         });
-    },
-    copyBowerFiles: function() {
-
-        //just cant get the copy works in the end queue, so weird
-        //so create this `copyBowerFiles` queue for the bower files copying task
-
-        //将bower安装的文件复制到lib下
-        //sweetalert插件
-        if (this.mis.uiPlugins.indexOf('sweetalert') > -1) {
-            //let the users what's going on
-            this.log('复制bower文件 sweetalert ...');
-            this.fs.copy(
-                this.destinationPath('bower_components/sweetalert/lib/sweet-alert.css'),
-                this.destinationPath('static/libs/sweetalert/sweet_alert.css')
-            );
-            this.fs.copy(
-                this.destinationPath('bower_components/sweetalert/lib/sweet-alert.js'),
-                this.destinationPath('static/libs/sweetalert/sweet_alert.js')
-            );
-            this.log('复制bower文件 sweetalert 完成！');
-        }
-
-        //animate.css插件
-        if (this.mis.uiPlugins.indexOf('animate.css') > -1) {
-            this.log('复制bower文件 animate.css ...');
-            this.fs.copy(
-                this.destinationPath('bower_components/animate.css/animate.css'),
-                this.destinationPath('static/libs/animate.css')
-            );
-            this.log('复制bower文件 animate.css 完成！');
-        }
-
-        //angularjs material design
-        //因为angular material design还没正式发版，先不加进来
-        // if (this.mis.uiPlugins.indexOf('angular-material-design') > -1) {
-        //     this.fs.copy(
-        //         this.destinationPath('bower_components/angular/angular.js'),
-        //         this.destinationPath('static/libs/angularjs/angular.js')
-        //     );
-        //      this.fs.copy(
-        //         this.destinationPath('bower_components/angular-animate/angular-animate.js'),
-        //         this.destinationPath('static/libs/angularjs/angular-animate.js')
-        //     );
-        //      this.fs.copy(
-        //         this.destinationPath('bower_components/angular-animate/angular-animate.js'),
-        //         this.destinationPath('static/libs/angularjs/angular-animate.js')
-        //     );
-        // }
-        
+        this.spawnCommand('grunt', ['copy']);
     },
     end: function() {
-        
+
+        //*******************
+        //so weird!! cant get the copy task works within this section, it seems we cant copy files after installation. Finally i make a grunt task to do the copy stuff
+        //**********************
+        //
+        //将bower安装的文件复制到lib下
+        //sweetalert插件
+        // if (this.mis.uiPlugins.indexOf('sweetalert') > -1) {
+        //     //let the users what's going on
+        //     this.log('复制bower文件 sweetalert ...');
+        //     this.fs.copy(
+        //         this.destinationPath('bower_components/sweetalert/lib/sweet-alert.css'),
+        //         this.destinationPath('static/libs/sweetalert/sweet_alert.css')
+        //     );
+        //     this.fs.copy(
+        //         this.destinationPath('bower_components/sweetalert/lib/sweet-alert.js'),
+        //         this.destinationPath('static/libs/sweetalert/sweet_alert.js')
+        //     );
+        //     this.log('复制bower文件 sweetalert 完成！');
+        // }
+
+        // //animate.css插件
+        // if (this.mis.uiPlugins.indexOf('animate.css') > -1) {
+        //     this.log('复制bower文件 animate.css ...');
+        //     this.fs.copy(
+        //         this.destinationPath('bower_components/animate.css/animate.css'),
+        //         this.destinationPath('static/libs/animate.css')
+        //     );
+        //     this.log('复制bower文件 animate.css 完成！');
+        // }
+
         //store user configuration
         this.config.set('author', this.mis.author);
         this.config.set('projectName', this.mis.projectName);
