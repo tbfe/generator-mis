@@ -66,6 +66,7 @@ yo mis:view <view名>
 ## FAQ
 
 - 如何删除bower及npm安装的文件，也即`bower_components`文件夹和`node_modules`文件夹下的文件
+
 > 您好，千万别手动删除，至少在Windows下，会提示文件路径太长无法删除的情况，正确的做法是将bower.json和package.json里面所有的依赖都删除，然后执行`bower prune`和`npm prune`。成功后，需要百金买邻地`rm -rf`了，当然，此时你也可以手动删除了。
 
 ## License
