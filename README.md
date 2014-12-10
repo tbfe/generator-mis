@@ -73,6 +73,10 @@ yo mis:view <view名>
 
 MIT
 
+## CONTRIBUTORS
+
+[![Wayou Liu](https://avatars2.githubusercontent.com/u/3783096?v=3&s=117)](http://addyosmani.com) | [![Weitao Lee](https://avatars0.githubusercontent.com/u/1782542?v=3&s=117)](http://sindresorhus.com)
+
 ## References
 
 - [Build Your Own Yeoman Generator](http://code.tutsplus.com/tutorials/build-your-own-yeoman-generator--cms-20040)
