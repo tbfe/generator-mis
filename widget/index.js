@@ -63,7 +63,6 @@ module.exports = yeoman.generators.Base.extend({
     }.bind(this));
   },
   writing: function() {
-    console.log(this);
     var fileBase = this._.underscored(this.name);
     var author = process.env.USER || 'author';
     var date = ((new Date()).getFullYear()) + '-' + ((new Date()).getMonth() + 1) + '-' + ((new Date()).getDate());
