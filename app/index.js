@@ -3,9 +3,7 @@ var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
 //for parsing and manipulate javascript code
-var program = require("ast-query");
-
-var assert = yeoman.assert;
+var program = require('ast-query');
 
 module.exports = yeoman.generators.Base.extend({
     initializing: function() {
@@ -45,7 +43,7 @@ module.exports = yeoman.generators.Base.extend({
             //进一步检测control文件夹下存在哪些项目，用于后面项目重名时的覆盖提示
             this.existedProjects = [];
             var controlFiles = this.expand(this.destinationPath('control/*.php'));
-            controlFiles.forEach(function(v, i, a) {
+            controlFiles.forEach(function(v) {
                 this.existedProjects.push(this._.chain(v).strRightBack('/').strLeftBack('.php').underscored().value());
             }.bind(this));
 
@@ -99,7 +97,7 @@ module.exports = yeoman.generators.Base.extend({
                 default: false,
                 when: function() {
                     //如果检测到子模块名，则此项默认为true, 否则为false
-                    return !(this.mis.subModName.length > 0);
+                    return this.mis.subModName.length === 0;
                 }.bind(this)
             }, {
                 type: 'confirm',
@@ -161,23 +159,7 @@ module.exports = yeoman.generators.Base.extend({
                         return true;
                     }
                 }.bind(this)
-            }
-            //默认生成吧，之后做成主题，由主题来决定是否有侧边菜单
-            // , {
-            //     type: 'confirm',
-            //     name: 'isSidebar',
-            //     message: '需要生成侧边菜单么？',
-            //     default: true
-            // }
-
-            // , {
-            //     type: 'list',
-            //     name: 'uiFramework',
-            //     choices: ['bootstrap', 'angular-material-design (较新，如果你想尝试的话)'],
-            //     message: '请选择UI框架',
-            //     default: 'bootstrap'
-            // }
-            , {
+            }, {
                 type: 'checkbox',
                 name: 'uiPlugins',
                 choices: ['sweetalert', 'animate.css'],

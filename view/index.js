@@ -14,7 +14,7 @@ module.exports = yeoman.generators.Base.extend({
         this.existedProjects = [];
         var controlFiles = this.expand(this.destinationPath('control/*.php'));
 
-        controlFiles.forEach(function(v, i, a) {
+        controlFiles.forEach(function(v) {
             this.existedProjects.push(this._.chain(v).strRightBack('/').strLeftBack('.php').underscored().value());
         }.bind(this));
     },
