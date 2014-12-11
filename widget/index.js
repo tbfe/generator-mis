@@ -22,7 +22,7 @@ module.exports = yeoman.generators.Base.extend({
     var prompts = [];
     this.author = process.env.USER;
 
-    if (this.author) {
+    if (! this.author) {
       prompts.push({
         type: 'input',
         name: 'author',
