@@ -27,7 +27,6 @@
   "dependencies": {
     "ast-query": "^0.3.0",
     "chalk": "^0.5.0",
-    "sleep": "^1.2.0",
     "yeoman-generator": "^0.18.0",
     "yosay": "^0.3.0"
   },
