@@ -1,5 +1,5 @@
 
-# 贴吧MIS生成器
+# 贴吧MIS生成器[![Code Climate](https://codeclimate.com/github/tbfe/generator-mis/badges/gpa.svg)](https://codeclimate.com/github/tbfe/generator-mis)
 
 生成贴吧MIS文件，基于[Angular开发方案2.0](http://jsbear.baidu.com/2014/11/12/angularjs-new-dev-pattern/)
 
