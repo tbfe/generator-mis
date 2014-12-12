@@ -3,8 +3,7 @@
 </div>
 <div class="col-md-10 main-wrapper">
     <div class="search-wrapper">
-        <h1>{{info}}</h1>
-        <% if(viewName=='view1'){ %>
+        <h1>{{info}}</h1><% if(viewName=='view1'){ %>
         <form class="form-horizontal" role="form">
             <div class="form-group">
                 <div class="col-sm-3">
@@ -52,6 +51,5 @@
         <pagination total-items="dataSource.page.data_total" page="dataSource.page.page_num" max-size="8" items-per-page="dataSource.page.page_size" boundary-links="true" rotate="false" on-select-page="changePage(page)" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;"
         last-text="&raquo;">
         </pagination>
-    </div>
-    <% } %>
+    </div><% } %>
 </div>

@@ -65,107 +65,96 @@ module.exports = yeoman.generators.Base.extend({
         var done = this.async();
         //collect some info to setup the project
         var prompts = [{
-                type: 'input',
-                name: 'author',
-                message: '作者（用于生成文件头部的文档）:',
-                default: this.user.git.name() || 'tbfe',
-                store: true
-            }, {
-                type: 'input',
-                name: 'projectName',
-                message: '项目名 (会用来生成主angular模块,control文件及template文件):',
-                default: 'Sample'
+            type: 'input',
+            name: 'author',
+            message: '作者（用于生成文件头部的文档）:',
+            default: this.user.git.name() || process.env.USER ||'tbfe',
+            store: true
+        }, {
+            type: 'input',
+            name: 'projectName',
+            message: '项目名 (会用来生成主angular模块,control文件及template文件):',
+            default: 'Sample'
+        }, {
+            type: 'input',
+            name: 'host',
+            message: '部署地址:',
+            default: this.mis.host
+        }, {
+            type: 'confirm',
+            name: 'singleMod',
+            message: '本项目有父子模块么？',
+            default: false,
+            when: function() {
+                //如果检测到子模块名，则此项默认为true, 否则为false
+                return this.mis.subModName.length === 0;
+            }.bind(this)
+        }, {
+            type: 'confirm',
+            name: 'singleMod',
+            message: '本项目有父子模块么？',
+            default: true,
+            when: function() {
+                //如果检测到子模块名，则此项默认为true, 否则为false
+                return this.mis.subModName.length > 0;
+            }.bind(this)
+        }, {
+            type: 'input',
+            name: 'modName',
+            message: '模块名:',
+            when: function(anwsers) {
+                return !anwsers.singleMod;
             },
-            // {
-            //     type: 'confirm',
-            //     name: 'projectNameExists',
-            //     message: '已经存在同名项目，如果确定继续将会覆盖原项目',
-            //     when: function(anwsers) {
-            //         return this.existedProjects.indexOf(this._.underscored(anwsers.projectName)) > -1;
-
-            //     }.bind(this)
-            // },
-            {
-                type: 'input',
-                name: 'host',
-                message: '部署地址:',
-                default: this.mis.host
-            }, {
-                type: 'confirm',
-                name: 'singleMod',
-                message: '本项目有父子模块么？',
-                default: false,
-                when: function() {
-                    //如果检测到子模块名，则此项默认为true, 否则为false
-                    return this.mis.subModName.length === 0;
-                }.bind(this)
-            }, {
-                type: 'confirm',
-                name: 'singleMod',
-                message: '本项目有父子模块么？',
-                default: true,
-                when: function() {
-                    //如果检测到子模块名，则此项默认为true, 否则为false
-                    return this.mis.subModName.length > 0;
-                }.bind(this)
-            }, {
-                type: 'input',
-                name: 'modName',
-                message: '模块名:',
-                when: function(anwsers) {
-                    return !anwsers.singleMod;
-                },
-                default: this.mis.modName,
-                validate: function(input) {
-                    this.log(this.mis.modName);
-                    //如果是新模块，此字段为必需
-                    if (!this.mis.modName && !input) {
-                        return false;
-                    } else {
-                        return true;
-                    }
-                }.bind(this)
-            }, {
-                type: 'input',
-                name: 'modName',
-                message: '主模块名:',
-                when: function(anwsers) {
-                    return anwsers.singleMod;
-                },
-                default: this.mis.modName,
-                validate: function(input) {
-                    this.log(this.mis.modName);
-                    //如果是新模块，此字段为必需
-                    if (!this.mis.modName && !input) {
-                        return false;
-                    } else {
-                        return true;
-                    }
-                }.bind(this)
-            }, {
-                type: 'input',
-                name: 'subModName',
-                message: '子模块名:',
-                default: this.mis.subModName,
-                when: function(anwsers) {
-                    return anwsers.singleMod;
-                },
-                validate: function(input) {
-                    this.log(this.mis.subModName);
-                    //如果是新模块，且选择了有父子模块，则此字段也是必需的
-                    if (!this.mis.subModName && !input) {
-                        return false;
-                    } else {
-                        return true;
-                    }
-                }.bind(this)
-            }, {
-                type: 'checkbox',
-                name: 'uiPlugins',
-                choices: ['sweetalert', 'animate.css'],
-                message: '以下插件按需选择'
-            }
-        ];
+            default: this.mis.modName,
+            validate: function(input) {
+                this.log(this.mis.modName);
+                //如果是新模块，此字段为必需
+                if (!this.mis.modName && !input) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }.bind(this)
+        }, {
+            type: 'input',
+            name: 'modName',
+            message: '主模块名:',
+            when: function(anwsers) {
+                return anwsers.singleMod;
+            },
+            default: this.mis.modName,
+            validate: function(input) {
+                this.log(this.mis.modName);
+                //如果是新模块，此字段为必需
+                if (!this.mis.modName && !input) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }.bind(this)
+        }, {
+            type: 'input',
+            name: 'subModName',
+            message: '子模块名:',
+            default: this.mis.subModName,
+            when: function(anwsers) {
+                return anwsers.singleMod;
+            },
+            validate: function(input) {
+                this.log(this.mis.subModName);
+                //如果是新模块，且选择了有父子模块，则此字段也是必需的
+                if (!this.mis.subModName && !input) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }.bind(this)
+        }, {
+            type: 'checkbox',
+            name: 'uiPlugins',
+            choices: ['sweetalert', 'animate.css'],
+            message: '以下插件按需选择'
+        }];
 
         this.prompt(prompts, function(anwsers) {
             this.mis = anwsers;
