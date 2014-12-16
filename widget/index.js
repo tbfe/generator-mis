@@ -54,7 +54,7 @@ module.exports = yeoman.generators.Base.extend({
       type: 'list',
       name: 'widgetType',
       choices: this.widgetTypes,
-      message: '那么问题来了，你要新建那种类型的widget呢？',
+      message: '那么问题来了，你要新建哪种类型的widget呢？',
       store: true
     });
     this.prompt(prompts, function(anwsers) {

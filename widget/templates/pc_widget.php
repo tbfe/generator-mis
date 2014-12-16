@@ -7,6 +7,6 @@
 
 <?php HTML::scriptStart(); ?>
   <script>
-    _.Module.use('<%= modName %>/widget/<%= name %>', [], function(){});
+    _.Module.use('<%= modName %>/widget/<%= instanceName %>', [], function(){});
   </script>
 <?php HTML::scriptEnd(); ?>

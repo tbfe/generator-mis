@@ -3,7 +3,7 @@
  * @time: <%= date %>
  */
 _.Module.define({
-  path: "<%= modName %>/widget/<%= name %>",
+  path: "<%= modName %>/widget/<%= instanceName %>",
   requires: [],
   sub: {
     initial: function () {
