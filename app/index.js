@@ -8,6 +8,8 @@ var program = require('ast-query');
 module.exports = yeoman.generators.Base.extend({
     initializing: function() {
 
+
+
         // Have Yeoman greet the user.
         this.log(yosay(
             chalk.yellow('TIEBA MIS GENERATOR ')
@@ -16,6 +18,7 @@ module.exports = yeoman.generators.Base.extend({
         this.log('need help? go and open issue: https://github.com/tbfe/generator-mis/issues/new');
 
         this.mis = {};
+
         this.pkg = require('../package.json');
         //尝试读取deploy-conf.js文件，并且获取模块名，部署路径等，如果是全新模块则会读取失败，这些信息稍后由用户输入
         var deployConfFile = this.expand(this.destinationPath('deploy-conf.js'));
@@ -68,13 +71,20 @@ module.exports = yeoman.generators.Base.extend({
             type: 'input',
             name: 'author',
             message: '作者（用于生成文件头部的文档）:',
-            default: this.user.git.name() || process.env.USER ||'tbfe',
+            default: this.user.git.name() || process.env.USER || 'tbfe',
             store: true
         }, {
             type: 'input',
             name: 'projectName',
             message: '项目名 (会用来生成主angular模块,control文件及template文件):',
-            default: 'Sample'
+            default: 'Sample',
+            validate: function(input) {
+                if (this.existedProjects && this.existedProjects.indexOf(this._.underscored(input)) > -1) {
+                    return input + ' 已存在！';
+                } else {
+                    return true;
+                }
+            }.bind(this)
         }, {
             type: 'input',
             name: 'host',
@@ -159,6 +169,8 @@ module.exports = yeoman.generators.Base.extend({
         this.prompt(prompts, function(anwsers) {
             this.mis = anwsers;
             this.mis.date = new Date().toISOString().substring(0, 10);
+            this.mis.goodbyeMsg = chalk.green('All done!\n') + chalk.white('You are ready to go') + '\n' + chalk.yellow('HAPPY CODING \\(^____^)/');
+
             //如果先把了无父子模块，防止subModName可能会为undefined
             this.mis.subModName = this.mis.subModName || '';
 
@@ -226,8 +238,9 @@ module.exports = yeoman.generators.Base.extend({
                 this.destinationPath('deploy-conf.js'),
                 this.mis
             );
+
             //fis-conf.js
-            //如果不是新模块，为了避免覆盖原来的fis-conf.js文件，则不复制
+            //新模块则创建该文件，否则更新该文件
             if (!this.existedProjects) {
                 this.fs.copyTpl(
                     this.templatePath('fis-conf.js'),
@@ -235,6 +248,12 @@ module.exports = yeoman.generators.Base.extend({
                         projectName: fileBase
                     }
                 );
+            } else {
+                var fisConfFile = program(this.readFileAsString(this.destinationPath('fis-conf.js')));
+                var fisConfContent = fisConfFile.callExpression('fis.config.merge');
+                //添加文件合并规则
+                fisConfContent.arguments.at(0).key('pack').key('\'static/'+fileBase+'/app_all.js\'').value('[/static\\/'+fileBase +'\\/.*.js/]');
+                this.fs.write(this.destinationPath('fis-conf.js'),fisConfFile.toString());
             }
 
             //control
@@ -304,7 +323,8 @@ module.exports = yeoman.generators.Base.extend({
                 }
             );
             //sidebar directive 
-            //默认启用侧边菜单 
+            //默认启用侧边菜单
+            //这个应该是主题负责的事情，以后移到主题里去 
             // if (this.mis.isSidebar) {
             //sidebar.html
             this.fs.copy(
@@ -351,9 +371,29 @@ module.exports = yeoman.generators.Base.extend({
 
     install: function() {
         this.installDependencies({
-            skipInstall: this.options['skip-install'],
+            skipInstall: !this.mis.uiPlugins.length, //如果选择了插件才进行安装
             callback: function() {
-                this.spawnCommand('grunt', ['copy']);
+
+                //如果选择了插件才进行复制
+                if ( !! this.mis.uiPlugins.length) {
+                    this.log('将bower安装的插件复制到static/lib目录下...');
+                    var gruntTask = this.spawnCommand('grunt', ['copy']);
+
+                    //when finish copying, say goodbye
+                    gruntTask.on('close', function(code) {
+                        //if exited abnormally the code is null
+                        if (code === null) {
+                            this.log('error while copying file to static folder :(');
+                        } else {
+                            this.log('文件复制完成！');
+                            this.log(this.mis.goodbyeMsg);
+                        }
+                    }.bind(this));
+                } else {
+                    this.log('没有需要复制的文件');
+                    this.log(this.mis.goodbyeMsg);
+                }
+
             }.bind(this)
         });
     },
@@ -398,6 +438,7 @@ module.exports = yeoman.generators.Base.extend({
         // this.spawnCommand('svn propset svn:ignore bower_components .');
 
         //say goodbye
-        this.log(chalk.green('All done!\n') + chalk.white('You are ready to go') + '\n' + chalk.green('HAPPY CODING \\(^____^)/'));
+        //由于上面grunt 任务无法同步执行，所以这个结束的标语只能移到grunt 任务的回调里去
+        // this.log(chalk.green('All done!\n') + chalk.white('You are ready to go') + '\n' + chalk.green('HAPPY CODING \\(^____^)/'));
     }
 });
