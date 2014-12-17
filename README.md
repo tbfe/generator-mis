@@ -46,7 +46,8 @@ yo mis
 在模块根目录执行：
 
 ```bash
-yo mis:view <view名>
+#view 名可选，可以在之后的提问中填写
+yo mis:view [view名]
 ```
 再也不用手动去创建勒！
 

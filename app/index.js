@@ -7,9 +7,6 @@ var program = require('ast-query');
 
 module.exports = yeoman.generators.Base.extend({
     initializing: function() {
-
-
-
         // Have Yeoman greet the user.
         this.log(yosay(
             chalk.yellow('TIEBA MIS GENERATOR ')

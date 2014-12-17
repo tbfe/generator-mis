@@ -1,3 +1,7 @@
+/**
+ * @author <%= author %>
+ * @date <%= date %>
+ */
 angular.module('<%= projectName %>').controller('<%= name %>', [
     '$scope',
     '$location',
