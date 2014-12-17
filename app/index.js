@@ -25,13 +25,14 @@ module.exports = yeoman.generators.Base.extend({
         if (deployConfFile.length > 0) {
             //file exists
             var deployConfTree = program(this.readFileAsString(this.destinationPath('deploy-conf.js')));
-            var deployConfBody = deployConfTree.assignment('module.exports').nodes[0].right.properties;
+            var deployConfBody = deployConfTree.assignment('module.exports').value();
+
             //host
-            this.mis.host = deployConfBody[0].value.value;
+            this.mis.host = deployConfBody.key('\'host\'').value();
             //modName
-            this.mis.modName = deployConfBody[1].value.value;
+            this.mis.modName = deployConfBody.key('\'modName\'').value();
             //subModName
-            this.mis.subModName = deployConfBody[2].value.value;
+            this.mis.subModName = deployConfBody.key('\'subModName\'').value();
 
             this.log(
                 '检测到deploy-conf.js文件里已有如下信息：\n ' +
