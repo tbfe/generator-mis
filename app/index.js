@@ -41,8 +41,7 @@ module.exports = yeoman.generators.Base.extend({
                 '\n 将以此为基础生成新的项目，你也可以在稍后的提问中进行更改'
             );
 
-            //项目同名的冲突检测先不做，这个概率有点小
-            //这里获取到项目名后可以用于之后添加view用
+            //这里获取到项目名后可以用于之后添加view用，同时用于后面项目同名冲突的检测
             //进一步检测control文件夹下存在哪些项目，用于后面项目重名时的覆盖提示
             this.existedProjects = [];
             var controlFiles = this.expand(this.destinationPath('control/*.php'));
@@ -252,8 +251,8 @@ module.exports = yeoman.generators.Base.extend({
                 var fisConfFile = program(this.readFileAsString(this.destinationPath('fis-conf.js')));
                 var fisConfContent = fisConfFile.callExpression('fis.config.merge');
                 //添加文件合并规则
-                fisConfContent.arguments.at(0).key('pack').key('\'static/'+fileBase+'/app_all.js\'').value('[/static\\/'+fileBase +'\\/.*.js/]');
-                this.fs.write(this.destinationPath('fis-conf.js'),fisConfFile.toString());
+                fisConfContent.arguments.at(0).key('pack').key('\'static/' + fileBase + '/app_all.js\'').value('[/static\\/' + fileBase + '\\/.*.js/]');
+                this.fs.write(this.destinationPath('fis-conf.js'), fisConfFile.toString());
             }
 
             //control
@@ -322,6 +321,7 @@ module.exports = yeoman.generators.Base.extend({
                     projectName: this._.camelize(this.mis.projectName)
                 }
             );
+
             //sidebar directive 
             //默认启用侧边菜单
             //这个应该是主题负责的事情，以后移到主题里去 
@@ -365,6 +365,15 @@ module.exports = yeoman.generators.Base.extend({
                     }
                 );
 
+                //view style
+                this.fs.copyTpl(
+                    this.templatePath('static/project/views/view.css'),
+                    this.destinationPath('static/' + fileBase + '/views/view' + i + '/view' + i + '.css'), {
+                        date: this.mis.date,
+                        author: this.mis.author
+                    }
+                );
+
             }
         }
     },
@@ -399,36 +408,6 @@ module.exports = yeoman.generators.Base.extend({
     },
     end: function() {
 
-        //*******************
-        //so weird!! cant get the copy task works within this section, it seems we cant copy files after installation. Finally i make a grunt task to do the copy stuff
-        //**********************
-        //
-        //将bower安装的文件复制到lib下
-        //sweetalert插件
-        // if (this.mis.uiPlugins.indexOf('sweetalert') > -1) {
-        //     //let the users what's going on
-        //     this.log('复制bower文件 sweetalert ...');
-        //     this.fs.copy(
-        //         this.destinationPath('bower_components/sweetalert/lib/sweet-alert.css'),
-        //         this.destinationPath('static/libs/sweetalert/sweet_alert.css')
-        //     );
-        //     this.fs.copy(
-        //         this.destinationPath('bower_components/sweetalert/lib/sweet-alert.js'),
-        //         this.destinationPath('static/libs/sweetalert/sweet_alert.js')
-        //     );
-        //     this.log('复制bower文件 sweetalert 完成！');
-        // }
-
-        // //animate.css插件
-        // if (this.mis.uiPlugins.indexOf('animate.css') > -1) {
-        //     this.log('复制bower文件 animate.css ...');
-        //     this.fs.copy(
-        //         this.destinationPath('bower_components/animate.css/animate.css'),
-        //         this.destinationPath('static/libs/animate.css')
-        //     );
-        //     this.log('复制bower文件 animate.css 完成！');
-        // }
-
         //store user configuration
         this.config.set('author', this.mis.author);
         this.config.set('projectName', this.mis.projectName);
@@ -436,9 +415,5 @@ module.exports = yeoman.generators.Base.extend({
         //ignore bower_components folder
         //在ocean机器上会执行失败，先去掉
         // this.spawnCommand('svn propset svn:ignore bower_components .');
-
-        //say goodbye
-        //由于上面grunt 任务无法同步执行，所以这个结束的标语只能移到grunt 任务的回调里去
-        // this.log(chalk.green('All done!\n') + chalk.white('You are ready to go') + '\n' + chalk.green('HAPPY CODING \\(^____^)/'));
     }
 });
