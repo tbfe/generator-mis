@@ -63,9 +63,13 @@ PS:在非angular项目中也能使用这个命令来增加widget
 
 ## 主题
 
-目前只一个默认主题，之后会将之前进行过的项目进行抽取总结出更多主题可供选择。
+两种布局可供选择。
 
-![default theme](asset/default_theme.jpg)
+- 默认主题，上面导航，下面正文
+![default theme](asset/theme_default.jpg)
+
+- sidebar主题，左边导航，右边正文
+![sidebar theme](asset/theme_sidebar.jpg)
 
 ## 插件
 
@@ -75,6 +79,10 @@ PS:在非angular项目中也能使用这个命令来增加widget
 - [animate.css](http://daneden.github.io/animate.css/)
 
 ## FAQ
+
+- 使用本生成器生成的`bower.json`，`Gruntfile.js`，`package.json`等文件需要加入到版本管理么？
+
+> 可以选择不加入`svn`，当然也可以加入`svn` 一并提交，但对于`bower_components`及`node_modules`两个文件夹千万不要加入`svn`进行提交，你会想哭的
 
 - 如何删除bower及npm安装的文件，也即`bower_components`文件夹和`node_modules`文件夹下的文件
 
@@ -94,7 +102,7 @@ PS:在非angular项目中也能使用这个命令来增加widget
 
 - 如何安装更多插件
 
-> 直接通过`bower install <插件名>` 进行安装，取代手工下载，会高端很多~
+> 直接通过`bower install <插件名>` 进行安装，取代手工下载，会方便很多~
 
 
 ## License

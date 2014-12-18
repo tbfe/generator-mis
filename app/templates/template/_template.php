@@ -47,38 +47,14 @@
     ?>
   </head>
   <body>
-       <nav class="navbar navbar-default" role="navigation">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a href="#" class="navbar-brand">
-              <img class="logo" style="height:25px;vertical-align:middle" src="http://tieba.baidu.com/tb/static-common/img/search_logo_7835b03.png" >
-              <span class="logo-text" style="vertical-align:middle">|<%= projectName %></span>
-            </a>
-          </div>
-          <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-              <li><a href="#" id="username"></a></li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-      <div class="container-fluid" id="main-container">
-        <div class="row">
-          <div ng-view>
-          </div>
+      <navbar></navbar>
+      <div class="container">
+        <div ng-view>
         </div>
       </div>
+      <hr>
       <footer class="text-center">
-        <hr>
-        <p class="text-muted">
-          &copy;<?php echo date("Y"); ?> | <%= projectName %>
-        </p>
+        <p class="text-muted">&copy;<?php echo date("Y"); ?> 百度贴吧 | <%= projectName %></p>
       </footer>
   </body>
   

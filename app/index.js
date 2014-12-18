@@ -157,10 +157,17 @@ module.exports = yeoman.generators.Base.extend({
                 }
             }.bind(this)
         }, {
+            type: 'list',
+            name: 'theme',
+            choices: ['default', 'sidenav'],
+            message: '选择一个主题吧，默认主题为顶部导航，sidebar主题为左侧导航，可到Github项目页预览(方向键或J,K进行选择)',
+            store: true,
+            default: 'default'
+        }, {
             type: 'checkbox',
             name: 'uiPlugins',
             choices: ['sweetalert', 'animate.css'],
-            message: '以下插件按需选择'
+            message: '以下插件按需选择(按空格进行选择)'
         }];
 
         this.prompt(prompts, function(anwsers) {
@@ -267,13 +274,13 @@ module.exports = yeoman.generators.Base.extend({
             this.fs.copyTpl(
                 this.templatePath('template/_template.php'),
                 this.destinationPath('template/' + fileBase + '/index.php'), {
-
                     date: this.mis.date,
                     author: this.mis.author,
                     projectName: this._.humanize(this.mis.projectName),
                     projectFoler: fileBase,
                     modName: this.mis.modName,
-                    uiPlugins: this.mis.uiPlugins
+                    uiPlugins: this.mis.uiPlugins,
+                    theme: this.mis.theme
                 }
             );
             //template/index.js
@@ -283,7 +290,7 @@ module.exports = yeoman.generators.Base.extend({
             );
             //template/index.css
             this.fs.copy(
-                this.templatePath('template/_template.css'),
+                this.templatePath('static/project/views/' + this.mis.theme + '/theme.css'),
                 this.destinationPath('template/' + fileBase + '/index.css')
             );
 
@@ -291,7 +298,6 @@ module.exports = yeoman.generators.Base.extend({
             this.fs.copyTpl(
                 this.templatePath('static/project/_app.js'),
                 this.destinationPath('static/' + fileBase + '/app.js'), {
-
                     date: this.mis.date,
                     author: this.mis.author,
                     moduleName: this._.camelize(this.mis.projectName),
@@ -321,32 +327,47 @@ module.exports = yeoman.generators.Base.extend({
                 }
             );
 
-            //sidebar directive 
-            //默认启用侧边菜单
-            //这个应该是主题负责的事情，以后移到主题里去 
-            // if (this.mis.isSidebar) {
-            //sidebar.html
-            this.fs.copy(
-                this.templatePath('static/project/directives/sidebar/_sidebar.html'),
-                this.destinationPath('static/' + fileBase + '/directives/sidebar/sidebar.html')
-            );
+            //theme为default时，不需要sidebar 组件
+            if (this.mis.theme !== 'default') {
+                //sidebar.html
+                this.fs.copyTpl(
+                    this.templatePath('static/project/directives/sidebar/_sidebar.html'),
+                    this.destinationPath('static/' + fileBase + '/directives/sidebar/sidebar.html'), {
+                        theme: this.mis.theme
+                    }
+                );
 
-            //sidebar.js
+                //sidebar.js
+                this.fs.copyTpl(
+                    this.templatePath('static/project/directives/sidebar/_sidebar.js'),
+                    this.destinationPath('static/' + fileBase + '/directives/sidebar/sidebar.js'), {
+                        projectName: this._.camelize(this.mis.projectName)
+                    }
+                );
+            }
+
+
+            //navbar directive
             this.fs.copyTpl(
-                this.templatePath('static/project/directives/sidebar/_sidebar.js'),
-                this.destinationPath('static/' + fileBase + '/directives/sidebar/sidebar.js'), {
+                this.templatePath('static/project/directives/navbar/_navbar.html'),
+                this.destinationPath('static/' + fileBase + '/directives/navbar/navbar.html'), {
+                    theme: this.mis.theme,
                     projectName: this._.camelize(this.mis.projectName)
                 }
             );
-            // } else {
-            //    this.mkdir('static/' + fileBase + '/directives');
-            //}
+
+            this.fs.copyTpl(
+                this.templatePath('static/project/directives/navbar/_navbar.js'),
+                this.destinationPath('static/' + fileBase + '/directives/navbar/navbar.js'), {
+                    projectName: this._.camelize(this.mis.projectName)
+                }
+            );
 
             // sample views
             for (var i = 3; i >= 1; i--) {
                 //view template
                 this.fs.copyTpl(
-                    this.templatePath('static/project/views/view.html'),
+                    this.templatePath('static/project/views/' + this.mis.theme + '/view.html'),
                     this.destinationPath('static/' + fileBase + '/views/view' + i + '/view' + i + '.html'), {
                         viewName: 'view' + i
                     }
@@ -360,7 +381,8 @@ module.exports = yeoman.generators.Base.extend({
                         resourceName: this._.classify(this.mis.projectName),
                         projectName: this._.camelize(this.mis.projectName),
                         index: i,
-                        controllerName: 'View' + i + 'Ctrl'
+                        controllerName: 'View' + i + 'Ctrl',
+                        theme: this.mis.theme
                     }
                 );
 
@@ -372,7 +394,6 @@ module.exports = yeoman.generators.Base.extend({
                         author: this.mis.author
                     }
                 );
-
             }
         }
     },

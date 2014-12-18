@@ -10,6 +10,10 @@ angular.module('<%= projectName %>').controller('<%= controllerName %>', [
     '$window',
     '<%= resourceName %>',
     function($scope, $location, $route, $rootScope, $window, <%= resourceName %> ) {
+
+        //set witch nav item to be actived 
+        $rootScope.active='view<%= index %>';
+        
         $scope.info = "Hello from view<%= index %>";
         
         $scope.searchType = 1;
@@ -86,7 +90,7 @@ angular.module('<%= projectName %>').controller('<%= controllerName %>', [
                     swal('操作成功！', '条目 '+id+' 被成功删除', 'success');
                 });
             }else{
-                alert('确认删除条目 '+id+' 么?');
+                confirm('确认删除条目 '+id+' 么?');
             }
         };
     }
