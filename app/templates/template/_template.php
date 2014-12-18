@@ -17,6 +17,8 @@
         '<%= modName %>/libs/sweetalert/sweet_alert.css',<% } %><% if(uiPlugins.indexOf('animate.css')>-1){ %>
         //animate.css插件 doc:http://daneden.github.io/animate.css/
         '<%= modName %>/libs/animate.css',<% } %>
+        //views下面合并后的css
+        '<%= modName %>/static/<%= projectFoler %>/app_all.css',
         //本项目css 文件
         '<%= modName %>/template/<%= projectFoler %>/index.css'
       ));
@@ -40,8 +42,7 @@
         //本项目的插件,其他文件类似这样引入即可<% if(uiPlugins.indexOf('sweetalert')>-1){ %>
         //sweetalert插件 doc:http://tristanedwards.me/sweetalert
         '<%= modName %>/libs/sweetalert/sweet_alert.js',<% } %>
-        '<%= modName %>/template/<%= projectFoler %>/index.js',
-        '<%= modName %>/js/foo.js'
+        '<%= modName %>/template/<%= projectFoler %>/index.js'
       ));
     ?>
   </head>

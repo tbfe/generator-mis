@@ -22,7 +22,10 @@ fis.config.set('tbFisConfig', {
 fis.config.merge({
 	pack : {
 		'static/<%= projectName %>/app_all.js' :[
-			/static\/<%= projectName %>\/.*.js/
+			/static\/<%= projectName %>\/.*\.js$/
+		],
+		'static/<%= projectName %>/app_all.css' :[
+			/static\/<%= projectName %>\/.*\.css$/
 		]
 	}
 });

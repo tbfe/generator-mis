@@ -249,7 +249,8 @@ module.exports = yeoman.generators.Base.extend({
                 var fisConfFile = program(this.readFileAsString(this.destinationPath('fis-conf.js')));
                 var fisConfContent = fisConfFile.callExpression('fis.config.merge');
                 //添加文件合并规则
-                fisConfContent.arguments.at(0).key('pack').key('\'static/' + fileBase + '/app_all.js\'').value('[/static\\/' + fileBase + '\\/.*.js/]');
+                fisConfContent.arguments.at(0).key('pack').key('\'static/' + fileBase + '/app_all.js\'').value('[/static\\/' + fileBase + '\\/.*\.js$/]');
+                fisConfContent.arguments.at(0).key('pack').key('\'static/' + fileBase + '/app_all.css\'').value('[/static\\/' + fileBase + '\\.*\.css$/]');
                 this.fs.write(this.destinationPath('fis-conf.js'), fisConfFile.toString());
             }
 
