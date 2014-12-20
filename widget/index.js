@@ -57,10 +57,21 @@ module.exports = yeoman.generators.Base.extend({
       message: '那么问题来了，你要新建哪种类型的widget呢？',
       store: true
     });
+
+    //support less
+    prompts.push({
+      type: 'confirm',
+      name: 'enableLess',
+      message: '想启用LESS么？',
+      default: false,
+      store: true
+    });
+
     this.prompt(prompts, function(anwsers) {
       this.name = anwsers.widgetName || this.name;
       this.widgetType = anwsers.widgetType || 'pc';
       this.author = anwsers.author || this.author;
+      this.enableLess = anwsers.enableLess;
       done();
     }.bind(this));
   },
@@ -90,8 +101,8 @@ module.exports = yeoman.generators.Base.extend({
 
     //copy the widget css file
     this.fs.copyTpl(
-      this.templatePath('widget.css'),
-      this.destinationPath('widget/' + fileBase + '/' + fileBase + '.css'), defaultParams
+      this.templatePath('widget.'+(this.enableLess?'less':'css')),
+      this.destinationPath('widget/' + fileBase + '/' + fileBase + (this.enableLess?'.less':'.css')), defaultParams
     );
 
     if (this.widgetType === 'pc') {
