@@ -86,7 +86,7 @@ PS:在非angular项目中也能使用这个命令来增加widget
 
 - 如何删除bower及npm安装的文件，也即`bower_components`文件夹和`node_modules`文件夹下的文件
 
-> 您好，千万别手动删除，至少在Windows下，会提示文件路径太长无法删除的情况，正确的做法是将bower.json和package.json里面所有的依赖都删除，然后执行`bower prune`和`npm prune`。成功后，就可以爽快地`rm -rf`了，当然，此时你也可以手动删除了。
+> 千万别手动删除，至少在Windows下，会提示文件路径太长无法删除的情况，正确的做法是将bower.json和package.json里面所有的依赖都删除，然后执行`bower prune`和`npm prune`。成功后，就可以爽快地`rm -rf`了，当然，此时你也可以手动删除了。
 
 - 提示`deploy-conf.js` 文件冲突，该选择覆盖么？
 
