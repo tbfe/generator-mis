@@ -106,7 +106,7 @@ PS:在非angular项目中也能使用这个命令来增加widget
 
 ## TODO
 
-[ ] add [highcharts-ng](https://github.com/pablojim/highcharts-ng)
+- [ ] add [highcharts-ng](https://github.com/pablojim/highcharts-ng)
 
 ## License
 
