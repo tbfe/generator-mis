@@ -104,6 +104,9 @@ PS:在非angular项目中也能使用这个命令来增加widget
 
 > 直接通过`bower install <插件名>` 进行安装，取代手工下载，会方便很多~
 
+## TODO
+
+[ ] add [highcharts-ng](https://github.com/pablojim/highcharts-ng)
 
 ## License
 
