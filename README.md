@@ -28,6 +28,7 @@ npm install -g yo
 ```bash
 npm install -g generator-mis
 ```
+[![NPM](https://nodei.co/npm/font-spider.png?downloads=true&stars=true)](https://www.npmjs.com/package/generator-mis)
 
 ## 使用
 
@@ -107,6 +108,7 @@ PS:在非angular项目中也能使用这个命令来增加widget
 ## TODO
 
 - [ ] add [highcharts-ng](https://github.com/pablojim/highcharts-ng)
+- [ ] load view file synchronously
 
 ## License
 
