@@ -3,6 +3,8 @@
 
 生成贴吧MIS文件，基于[Angular开发方案2.0](http://jsbear.baidu.com/2014/11/12/angularjs-new-dev-pattern/)
 
+[![NPM](https://nodei.co/npm/generator-mis.png?downloads=true&stars=true)](https://nodei.co/npm/generator-mis/)
+
 ### 没听过Yeoman?
 
 去[这里](http://yeoman.io/)了解一下:)
@@ -28,7 +30,7 @@ npm install -g yo
 ```bash
 npm install -g generator-mis
 ```
-[![NPM](https://nodei.co/npm/font-spider.png?downloads=true&stars=true)](https://www.npmjs.com/package/generator-mis)
+
 
 ## 使用
 
