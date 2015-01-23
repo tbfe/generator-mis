@@ -166,7 +166,7 @@ module.exports = yeoman.generators.Base.extend({
         }, {
             type: 'checkbox',
             name: 'uiPlugins',
-            choices: ['sweetalert', 'animate.css'],
+            choices: ['sweetalert(弹窗组件)', 'animate.css(动画组件)'],
             message: '以下插件按需选择(按空格进行选择)'
         }];
 
