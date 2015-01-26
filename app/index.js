@@ -375,7 +375,7 @@ module.exports = yeoman.generators.Base.extend({
                 //view controller
                 this.fs.copyTpl(
                     this.templatePath('static/project/views/view.js'),
-                    this.destinationPath('static/' + fileBase + '/views/view' + i + '/view' + i + '.js'), {
+                    this.destinationPath('static/' + fileBase + '/views/view' + i + '/view' + i + '_controller.js'), {
                         date: this.mis.date,
                         author: this.mis.author,
                         resourceName: this._.classify(this.mis.projectName),
