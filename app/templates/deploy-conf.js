@@ -14,5 +14,5 @@ module.exports = {
 	//静态文件部署路径
 	'staticPath': '/home/work/static/static.tieba.baidu.com',
 	//模版文件部署路径
-	'tplPath': '/home/work/orp001/template'
+	'tplPath': '/home/work/orp/template'
 };
