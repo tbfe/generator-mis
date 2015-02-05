@@ -18,7 +18,7 @@
         //animate.css插件 doc:http://daneden.github.io/animate.css/
         '<%= modName %>/libs/animate.css',<% } %>
         //views下面合并后的css
-        '<%= modName %>/static/<%= projectFoler %>/app_all.css',
+        '<%= modName %>/<%= projectFoler %>/app_all.css',
         //本项目css 文件
         '<%= modName %>/template/<%= projectFoler %>/index.css'
       ));
