@@ -7,7 +7,7 @@
 
 <?php HTML::scriptStart(); ?>
   <script>
-    F.use('<%= modName %>/widget/<%= name %>', function (exports) {// 你可以修改exports这个名字
+    F.use('<%= modName %>/widget/<%= name %>', function (exports) {/* 你可以修改exports这个名字*/
       var <%= instanceName %> = new exports.<%= className %>({
         $el: $('.<%= name %>'),
           conf: {
