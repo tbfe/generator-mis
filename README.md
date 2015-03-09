@@ -53,7 +53,7 @@ yo mis
 
 ```bash
 # template 名可选，可以在之后的提问中填写
-yo mis:template [view名]
+yo mis:template [template名]
 ```
 
 ### 生成一个view
