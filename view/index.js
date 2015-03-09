@@ -123,10 +123,10 @@ module.exports = yeoman.generators.Base.extend({
     end: function() {
         //say goodbye
         if (this.existedProjects.length > 0) {
-            console.log(chalk.green('All done!\n') + chalk.white('You are ready to go') + '\n' + chalk.yellow('HAPPY CODING \\(^____^)/'));
+            this.log(chalk.green('All done!\n') + chalk.white('You are ready to go') + '\n' + chalk.yellow('HAPPY CODING \\(^____^)/'));
         } else {
-            console.log(chalk.red('似乎没有找到可以添加view的项目~ '));
-            console.log('先 ' + chalk.yellow('yo mis') + ' 一下创建项目吧~');
+            this.log(chalk.red('似乎没有找到可以添加view的项目~ '));
+            this.log('先 ' + chalk.yellow('yo mis') + ' 一下创建项目吧~');
         }
     }
 });

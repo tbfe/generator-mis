@@ -24,3 +24,7 @@
             框架会自动识别同名的js css 完成加载
             结构和 template 的结构相同，可参见 template/__guide
             暂不支持子目录
+
+
+模块描述:
+<%= modDescription %>

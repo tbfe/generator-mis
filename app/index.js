@@ -83,6 +83,13 @@ module.exports = yeoman.generators.Base.extend({
                 }
             }.bind(this)
         }, {
+            type: 'list',
+            name: 'projectType',
+            choices: ['MIS', 'NOT_MIS'],
+            message: '生成MIS系统还是业务线代码？',
+            store: true,
+            default: 0
+        }, {
             type: 'input',
             name: 'host',
             message: '部署地址:',
@@ -157,17 +164,28 @@ module.exports = yeoman.generators.Base.extend({
                 }
             }.bind(this)
         }, {
+            type: 'input',
+            name: 'modDescription',
+            message: '模块描述:',
+            default: ''
+        }, {
             type: 'list',
             name: 'theme',
             choices: ['default', 'sidenav'],
             message: '选择一个主题吧，默认主题为顶部导航，sidebar主题为左侧导航，可到Github项目页预览(方向键或J,K进行选择)',
             store: true,
-            default: 'default'
+            default: 0,
+            when: function(anwsers) {
+                return anwsers.projectType === 'MIS';
+            }
         }, {
             type: 'checkbox',
             name: 'uiPlugins',
-            choices: ['sweetalert(弹窗组件)', 'animate.css(动画组件)'],
-            message: '以下插件按需选择(按空格进行选择)'
+            choices: ['sweetalert', 'animate.css'],
+            message: '以下插件按需选择(按空格进行选择)',
+            when: function(anwsers) {
+                return anwsers.projectType === 'MIS';
+            }
         }];
 
         this.prompt(prompts, function(anwsers) {
@@ -175,8 +193,10 @@ module.exports = yeoman.generators.Base.extend({
             this.mis.date = new Date().toISOString().substring(0, 10);
             this.mis.goodbyeMsg = chalk.green('All done!\n') + chalk.white('You are ready to go') + '\n' + chalk.yellow('HAPPY CODING \\(^____^)/');
 
-            //如果先把了无父子模块，防止subModName可能会为undefined
+            //防止subModName可能会为undefined
             this.mis.subModName = this.mis.subModName || '';
+            //防止uiPlugins可能会为undefined
+            this.mis.uiPlugins = this.mis.uiPlugins || [];
 
             done();
         }.bind(this));
@@ -230,9 +250,10 @@ module.exports = yeoman.generators.Base.extend({
                 this.templatePath('Makefile'),
                 this.destinationPath('Makefile')
             );
-            this.fs.copy(
+            this.fs.copyTpl(
                 this.templatePath('readme.txt'),
-                this.destinationPath('readme.txt')
+                this.destinationPath('readme.txt'),
+                this.mis
             );
             //end
 
@@ -271,136 +292,170 @@ module.exports = yeoman.generators.Base.extend({
                 }
             );
             //template
-            this.fs.copyTpl(
-                this.templatePath('template/_template.php'),
-                this.destinationPath('template/' + fileBase + '/index.php'), {
-                    date: this.mis.date,
-                    author: this.mis.author,
-                    projectName: this._.humanize(this.mis.projectName),
-                    projectFoler: fileBase,
-                    modName: this.mis.modName,
-                    uiPlugins: this.mis.uiPlugins,
-                    theme: this.mis.theme
-                }
-            );
-            //template/index.js
-            this.fs.copy(
-                this.templatePath('template/_template.js'),
-                this.destinationPath('template/' + fileBase + '/index.js')
-            );
-            //template/index.css
-            this.fs.copy(
-                this.templatePath('static/project/views/' + this.mis.theme + '/theme.css'),
-                this.destinationPath('template/' + fileBase + '/index.css')
-            );
-
-            //angular app.js
-            this.fs.copyTpl(
-                this.templatePath('static/project/_app.js'),
-                this.destinationPath('static/' + fileBase + '/app.js'), {
-                    date: this.mis.date,
-                    author: this.mis.author,
-                    moduleName: this._.camelize(this.mis.projectName),
-                    modName: this.mis.modName
-                }
-            );
-
-            //resource file
-            this.fs.copyTpl(
-                this.templatePath('static/project/resources/_resource.js'),
-                this.destinationPath('static/' + fileBase + '/resources/resource.js'), {
-                    date: this.mis.date,
-                    author: this.mis.author,
-                    resourceName: this._.classify(this.mis.projectName),
-                    projectName: this._.camelize(this.mis.projectName)
-                }
-            );
-
-            //filter file
-            this.fs.copyTpl(
-                this.templatePath('static/project/filters/_filter.js'),
-                this.destinationPath('static/' + fileBase + '/filters/filter.js'), {
-                    date: this.mis.date,
-                    author: this.mis.author,
-                    resourceName: this._.classify(this.mis.projectName),
-                    projectName: this._.camelize(this.mis.projectName)
-                }
-            );
-
-            //theme为default时，不需要sidebar 组件
-            if (this.mis.theme !== 'default') {
-                //sidebar.html
+            //这里分两条路，MIS路线和业务线
+            if (this.mis.projectType === 'MIS') {
                 this.fs.copyTpl(
-                    this.templatePath('static/project/directives/sidebar/_sidebar.html'),
-                    this.destinationPath('static/' + fileBase + '/directives/sidebar/sidebar.html'), {
+                    this.templatePath('template/_template.php'),
+                    this.destinationPath('template/' + fileBase + '/index.php'), {
+                        date: this.mis.date,
+                        author: this.mis.author,
+                        projectName: this._.humanize(this.mis.projectName),
+                        projectFoler: fileBase,
+                        modName: this.mis.modName,
+                        uiPlugins: this.mis.uiPlugins,
                         theme: this.mis.theme
                     }
                 );
 
-                //sidebar.js
+                //template/index.js
+                this.fs.copy(
+                    this.templatePath('template/_template.js'),
+                    this.destinationPath('template/' + fileBase + '/index.js')
+                );
+                //template/index.css
+                this.fs.copy(
+                    this.templatePath('static/project/views/' + this.mis.theme + '/theme.css'),
+                    this.destinationPath('template/' + fileBase + '/index.css')
+                );
+
+                //angular app.js
                 this.fs.copyTpl(
-                    this.templatePath('static/project/directives/sidebar/_sidebar.js'),
-                    this.destinationPath('static/' + fileBase + '/directives/sidebar/sidebar.js'), {
-                        projectName: this._.camelize(this.mis.projectName)
+                    this.templatePath('static/project/_app.js'),
+                    this.destinationPath('static/' + fileBase + '/app.js'), {
+                        date: this.mis.date,
+                        author: this.mis.author,
+                        moduleName: this._.camelize(this.mis.projectName),
+                        modName: this.mis.modName
                     }
                 );
-            }
 
-
-            //navbar directive
-            this.fs.copyTpl(
-                this.templatePath('static/project/directives/navbar/_navbar.html'),
-                this.destinationPath('static/' + fileBase + '/directives/navbar/navbar.html'), {
-                    theme: this.mis.theme,
-                    projectName: this._.camelize(this.mis.projectName)
-                }
-            );
-
-            this.fs.copyTpl(
-                this.templatePath('static/project/directives/navbar/_navbar.js'),
-                this.destinationPath('static/' + fileBase + '/directives/navbar/navbar.js'), {
-                    projectName: this._.camelize(this.mis.projectName)
-                }
-            );
-
-            // sample views
-            for (var i = 3; i >= 1; i--) {
-                //view template
+                //resource file
                 this.fs.copyTpl(
-                    this.templatePath('static/project/views/' + this.mis.theme + '/view.html'),
-                    this.destinationPath('static/' + fileBase + '/views/view' + i + '/view' + i + '.html'), {
-                        viewName: 'view' + i
-                    }
-                );
-                //view controller
-                this.fs.copyTpl(
-                    this.templatePath('static/project/views/view.js'),
-                    this.destinationPath('static/' + fileBase + '/views/view' + i + '/view' + i + '_controller.js'), {
+                    this.templatePath('static/project/resources/_resource.js'),
+                    this.destinationPath('static/' + fileBase + '/resources/resource.js'), {
                         date: this.mis.date,
                         author: this.mis.author,
                         resourceName: this._.classify(this.mis.projectName),
-                        projectName: this._.camelize(this.mis.projectName),
-                        index: i,
-                        controllerName: 'View' + i + 'Ctrl',
-                        theme: this.mis.theme
+                        projectName: this._.camelize(this.mis.projectName)
                     }
                 );
 
-                //view style
+                //filter file
                 this.fs.copyTpl(
-                    this.templatePath('static/project/views/view.css'),
-                    this.destinationPath('static/' + fileBase + '/views/view' + i + '/view' + i + '.css'), {
+                    this.templatePath('static/project/filters/_filter.js'),
+                    this.destinationPath('static/' + fileBase + '/filters/filter.js'), {
+                        date: this.mis.date,
+                        author: this.mis.author,
+                        resourceName: this._.classify(this.mis.projectName),
+                        projectName: this._.camelize(this.mis.projectName)
+                    }
+                );
+
+                //theme为default时，不需要sidebar 组件
+                if (this.mis.theme !== 'default') {
+                    //sidebar.html
+                    this.fs.copyTpl(
+                        this.templatePath('static/project/directives/sidebar/_sidebar.html'),
+                        this.destinationPath('static/' + fileBase + '/directives/sidebar/sidebar.html'), {
+                            theme: this.mis.theme
+                        }
+                    );
+
+                    //sidebar.js
+                    this.fs.copyTpl(
+                        this.templatePath('static/project/directives/sidebar/_sidebar.js'),
+                        this.destinationPath('static/' + fileBase + '/directives/sidebar/sidebar.js'), {
+                            projectName: this._.camelize(this.mis.projectName)
+                        }
+                    );
+                }
+
+                //navbar directive
+                this.fs.copyTpl(
+                    this.templatePath('static/project/directives/navbar/_navbar.html'),
+                    this.destinationPath('static/' + fileBase + '/directives/navbar/navbar.html'), {
+                        theme: this.mis.theme,
+                        projectName: this._.camelize(this.mis.projectName)
+                    }
+                );
+
+                this.fs.copyTpl(
+                    this.templatePath('static/project/directives/navbar/_navbar.js'),
+                    this.destinationPath('static/' + fileBase + '/directives/navbar/navbar.js'), {
+                        projectName: this._.camelize(this.mis.projectName)
+                    }
+                );
+
+                // sample views
+                for (var i = 3; i >= 1; i--) {
+                    //view template
+                    this.fs.copyTpl(
+                        this.templatePath('static/project/views/' + this.mis.theme + '/view.html'),
+                        this.destinationPath('static/' + fileBase + '/views/view' + i + '/view' + i + '.html'), {
+                            viewName: 'view' + i
+                        }
+                    );
+                    //view controller
+                    this.fs.copyTpl(
+                        this.templatePath('static/project/views/view.js'),
+                        this.destinationPath('static/' + fileBase + '/views/view' + i + '/view' + i + '_controller.js'), {
+                            date: this.mis.date,
+                            author: this.mis.author,
+                            resourceName: this._.classify(this.mis.projectName),
+                            projectName: this._.camelize(this.mis.projectName),
+                            index: i,
+                            controllerName: 'View' + i + 'Ctrl',
+                            theme: this.mis.theme
+                        }
+                    );
+
+                    //view style
+                    this.fs.copyTpl(
+                        this.templatePath('static/project/views/view.css'),
+                        this.destinationPath('static/' + fileBase + '/views/view' + i + '/view' + i + '.css'), {
+                            date: this.mis.date,
+                            author: this.mis.author
+                        }
+                    );
+                }
+            } else {
+                this.fs.copyTpl(
+                    this.templatePath('template/_template_business.php'),
+                    this.destinationPath('template/' + fileBase + '/' + fileBase + '.php'), {
+                        date: this.mis.date,
+                        author: this.mis.author,
+                        templateDescription: this.mis.modDescription
+                    }
+                );
+                //template js
+                this.fs.copyTpl(
+                    this.templatePath('template/_template.js'),
+                    this.destinationPath('template/' + fileBase + '/' + fileBase + '.js'), {
                         date: this.mis.date,
                         author: this.mis.author
                     }
                 );
+
+                //template css
+                this.fs.copyTpl(
+                    this.templatePath('template/_template.css'),
+                    this.destinationPath('template/' + fileBase + '/' + fileBase + '.css'), {
+                        date: this.mis.date,
+                        author: this.mis.author
+                    }
+                );
+
+                //static directory
+                this.mkdir('static');
+
             }
+
         }
     },
 
     install: function() {
         this.installDependencies({
-            skipInstall: !this.mis.uiPlugins.length, //如果选择了插件才进行安装
+            skipInstall: !this.mis.uiPlugins.length, //项目为MIS并且选择了插件才进行安装
             callback: function() {
 
                 //如果选择了插件才进行复制
