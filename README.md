@@ -17,6 +17,8 @@
 - [bower](http://bower.io/) `npm install -g bower`
 - [grunt-cli](http://gruntjs.com/) `npm install -g grunt-cli`
 
+**开发机上需要先安装[Jumbo](http://jumbo.baidu.com/)，然后才可全局安装node 包**
+
 ## 安装
 
 首先安装yeoman
