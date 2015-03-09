@@ -64,6 +64,16 @@ module.exports = yeoman.generators.Base.extend({
 
         var fileBase = this._.underscored(this.templateName);
 
+        //control
+        this.fs.copyTpl(
+            this.templatePath('_control.php'),
+            this.destinationPath('control/' + fileBase + '.php'), {
+                templateName: this.templateName,
+                date: this.date,
+                author: this.author
+            }
+        );
+        //template
         this.fs.copyTpl(
             this.templatePath('_template.php'),
             this.destinationPath('template/' + fileBase + '/' + fileBase + '.php'), {

@@ -282,18 +282,19 @@ module.exports = yeoman.generators.Base.extend({
                 this.fs.write(this.destinationPath('fis-conf.js'), fisConfFile.toString());
             }
 
-            //control
-            this.fs.copyTpl(
-                this.templatePath('control/_control.php'),
-                this.destinationPath('control/' + fileBase + '.php'), {
-                    date: this.mis.date,
-                    author: this.mis.author,
-                    projectName: fileBase,
-                }
-            );
-            //template
             //这里分两条路，MIS路线和业务线
             if (this.mis.projectType === 'MIS') {
+                //control
+                this.fs.copyTpl(
+                    this.templatePath('control/_control.php'),
+                    this.destinationPath('control/' + fileBase + '.php'), {
+                        date: this.mis.date,
+                        author: this.mis.author,
+                        projectName: fileBase,
+                    }
+                );
+
+                //template
                 this.fs.copyTpl(
                     this.templatePath('template/_template.php'),
                     this.destinationPath('template/' + fileBase + '/index.php'), {
@@ -419,6 +420,16 @@ module.exports = yeoman.generators.Base.extend({
                     );
                 }
             } else {
+                //control
+                this.fs.copyTpl(
+                    this.templatePath('control/_control_business.php'),
+                    this.destinationPath('control/' + fileBase + '.php'), {
+                        date: this.mis.date,
+                        author: this.mis.author,
+                        projectName: fileBase,
+                    }
+                );
+
                 this.fs.copyTpl(
                     this.templatePath('template/_template_business.php'),
                     this.destinationPath('template/' + fileBase + '/' + fileBase + '.php'), {
