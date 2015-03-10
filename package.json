@@ -1,6 +1,6 @@
 {
   "name": "generator-mis",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "百度贴吧MIS生成器",
   "license": "MIT",
   "main": "app/index.js",
@@ -19,7 +19,8 @@
   "files": [
     "app",
     "view",
-    "widget"
+    "widget",
+    "template"
   ],
   "keywords": [
     "yeoman-generator"
