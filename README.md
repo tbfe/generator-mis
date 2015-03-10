@@ -55,10 +55,8 @@ yo mis
 
 ```bash
 # template 名可选，可以在之后的提问中填写
-yo mis:tpl [template名]
+yo mis:template [template名]
 ```
-
-> * 因为`template` 会跟yeoman 里的关键字冲突，所以我们生成template的命令使用缩写`tpl`
 
 ### 生成一个view
 
