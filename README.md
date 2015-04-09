@@ -120,7 +120,7 @@ PS:在非angular项目中也能使用这个命令来增加widget
 
 > 直接通过`bower install <插件名>` 进行安装，取代手工下载，会方便很多~
 
-## License
+## LICENCE
 
 MIT
 
@@ -130,7 +130,7 @@ MIT
 :---:|:---:
 [Wayou Liu](http://wayou.github.io/) | [Weitao Lee](https://github.com/luckyadam)
 
-## References
+## REFERENCES
 
 - [Build Your Own Yeoman Generator](http://code.tutsplus.com/tutorials/build-your-own-yeoman-generator--cms-20040)
 - [underscore.string](https://github.com/epeli/underscore.string)
