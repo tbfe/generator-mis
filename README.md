@@ -78,15 +78,11 @@ yo mis:widget <widget名>
 再也不用手动去创建勒！
 PS:在非angular项目中也能使用这个命令来增加widget
 
-## 主题
+## 预览
 
-两种布局可供选择。
+下面是MIS界面预览图
 
-- 默认主题，上面导航，下面正文
-![default theme](asset/theme_default.jpg)
-
-- sidebar主题，左边导航，右边正文
-![sidebar theme](asset/theme_sidebar.jpg)
+![default theme](asset/screenshot.jpg)
 
 ## 插件
 
