@@ -88,8 +88,11 @@ PS:在非angular项目中也能使用这个命令来增加widget
 
 前端插件通过bower安装，目前仅包含以下插件，有需要再完善添加.
 
-- [sweetalert](http://tristanedwards.me/sweetalert)
-- [animate.css](http://daneden.github.io/animate.css/)
+- [bootstrap material design](http://fezvrasta.github.io/bootstrap-material-design/bootstrap-elements.html) Material design 在bootstrap 上的实现
+- [sweetalert](http://tristanedwards.me/sweetalert) 一个漂亮的弹窗组件
+- [animate.css](http://daneden.github.io/animate.css/) CSS动画库
+- [highcharts-ng](https://github.com/pablojim/highcharts-ng) Highcharts 图表库的angular封装
+- [ztree](http://www.ztree.me/v3/api.php) 树状插件
 
 ## FAQ
 
