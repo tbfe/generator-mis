@@ -12,11 +12,18 @@
     <link rel="shortcut icon" href="http://static.tieba.baidu.com/tb/favicon.ico" />
     <?php
       echo HTML::combocss(array(
-        'devplatcommon/lib/bootstrap/bootstrap.css',<% if(uiPlugins.indexOf('sweetalert')>-1){ %>
+        '<%= modName %>/lib/bootstrap/css/bootstrap.css',<% if(uiPlugins.indexOf('sweetalert')>-1){ %>
         //sweetalert插件 doc:http://tristanedwards.me/sweetalert
-        '<%= modName %>/libs/sweetalert/sweet_alert.css',<% } %><% if(uiPlugins.indexOf('animate.css')>-1){ %>
+        '<%= modName %>/lib/sweetalert/sweet_alert.css',<% } %><% if(uiPlugins.indexOf('animate.css')>-1){ %>
         //animate.css插件 doc:http://daneden.github.io/animate.css/
-        '<%= modName %>/libs/animate.css',<% } %>
+        '<%= modName %>/lib/animate.css',<% } %><% if(uiPlugins.indexOf('ztree')>-1){ %>
+        //树状插件 doc:http://www.ztree.me/v3/api.php
+        '<%= modName %>/lib/ztree/css/metroStyle/metroStyle.css',<% } %><% if(uiPlugins.indexOf('bootstrap-material-design')>-1){ %>
+        //bootstrap material design doc:http://fezvrasta.github.io/bootstrap-material-design/bootstrap-elements.html
+        '<%= modName %>/lib/snackbarjs/snackbar.css',
+        '<%= modName %>/lib/bootstrap-material-design/css/material-fullpalette.css',
+        '<%= modName %>/lib/bootstrap-material-design/css/ripples.css',<% } %>
+
         //views下面合并后的css
         '<%= modName %>/<%= projectFoler %>/app_all.css',
         //本项目css 文件
@@ -25,36 +32,55 @@
     ?>
     <?php
       echo HTML::combojs(array(
-        'devplatcommon/lib/jquery/jquery.js',
+        'devplatcommon/lib/jquery/jquery.js',<% if(uiPlugins.indexOf('bootstrap-material-design')>-1){ %>
+        //伴随bootstrap material design 的snackbar 消息提示插件
+        '<%= modName %>/lib/snackbarjs/snackbar.js',<% } %><% if(uiPlugins.indexOf('sweetalert')>-1){ %>
+        //sweetalert插件 doc:http://tristanedwards.me/sweetalert
+        '<%= modName %>/lib/sweetalert/sweet_alert.js',<% } %>
         'devplatcommon/lib/require/require.js'));
 
       echo HTML::combojs(array(
-        //使用传统bootstrap布局
         'devplatcommon/lib/angular/angular.js',
         'devplatcommon/lib/angular/angular-resource.js',
         'devplatcommon/lib/angular/angular-route.js', 
         'devplatcommon/lib/angular/angular-sanitize.js',
         'devplatcommon/lib/angular/ui-bootstrap.js',
-        'devplatcommon/lib/bootstrap/bootstrap.js',
-        //内部平台公共库
-        'devplatcommon/js/ng_common/ng_common.js', 
 
-        //本项目的插件,其他文件类似这样引入即可<% if(uiPlugins.indexOf('sweetalert')>-1){ %>
-        //sweetalert插件 doc:http://tristanedwards.me/sweetalert
-        '<%= modName %>/libs/sweetalert/sweet_alert.js',<% } %>
+        '<%= modName %>/lib/bootstrap/js/bootstrap.js',
+        //内部平台公共库
+        'devplatcommon/js/ng_common/ng_common.js',<% if(uiPlugins.indexOf('highcharts-ng')>-1){ %>
+        //highchart的angular封装 doc:https://github.com/pablojim/highcharts-ng
+        '<%= modName %>/lib/highcharts/highcharts.js',
+        '<%= modName %>/lib/highcharts-ng/highcharts-ng.js',<% } %><% if(uiPlugins.indexOf('ztree')>-1){ %>
+        '<%= modName %>/lib/ztree/js/ztree.js',<% } %><% if(uiPlugins.indexOf('bootstrap-material-design')>-1){ %>
+        '<%= modName %>/lib/arrive/arrive.js',
+        '<%= modName %>/lib/bootstrap-material-design/js/ripples.js',
+        'automation/lib/bootstrap-material-design/js/material.js',<% } %>
+
         '<%= modName %>/template/<%= projectFoler %>/index.js'
       ));
     ?>
   </head>
   <body>
+      <div class="navbar navbar-default">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"> <img src='../../static/img/tb-logo.png'> </a>
+        </div>
       <navbar></navbar>
-      <div class="container">
+    </div>
+      <div class="container main">
         <div ng-view>
         </div>
       </div>
       <hr>
       <footer class="text-center">
-        <p class="text-muted">&copy;<?php echo date("Y"); ?> 百度贴吧 | <%= projectName %></p>
+        <p class="text-muted"> <a href="mailto:magonglei@baidu.com">帮助及反馈</a> | <a href="#">文档</a> </p>
+        <p class="text-muted">&copy;<?php echo date("Y"); ?> 百度贴吧 | 自动化测试平台</p>
       </footer>
   </body>
   

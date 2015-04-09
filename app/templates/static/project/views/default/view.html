@@ -1,52 +1,66 @@
-<div class="starter-template">
-    <div class="search-wrapper">
-        <h1>{{info}}</h1><% if(viewName=='view1'){ %>
-        <form class="form-horizontal" role="form">
-            <div class="form-group">
-                <div class="col-sm-3">
-                    <div class="input-group">
-                        <div class="input-group-btn" style="width:100px;">
-                            <select class="form-control" name="" id="" ng-model="searchType">
-                                <option value="1">用户名</option>
-                                <option value="2">用户ID</option>
-                            </select>
-                        </div>
-                        <input class="form-control" id="startTime" type="text" ng-model="user_name" >
-                    </div>
+<div class="row">
+    <form class="form-inline">
+        <fieldset>
+                <div class="form-group">
+                    <label >任务ID</label>
+                    <input type="text" class="form-control" ng-model="urlSearch.t_id" >
                 </div>
-                <div class="col-sm-1">
-                    <button type="button" class="btn btn-primary" ng-click="search()">查询</button>
+                <div class="form-group">
+                    <label >创建者</label>
+                    <input type="text" class="form-control" ng-model="urlSearch.t_uname" >
                 </div>
-            </div>
-        </form>
-    </div>
-    <table class="table list-table">
+                 <div class="form-group">
+                    <label >更新时间从</label>
+                    <input type="date" class="form-control" ng-model="urlSearch.t_stime" >
+                </div>
+                <div class="form-group">
+                    <label >到</label>
+                    <input type="date" class="form-control" ng-model="urlSearch.t_etime" >
+                </div>
+                <button type="submit" class="btn btn-primary" ng-click="doSearch()">查询</button>
+        </fieldset>
+    </form>
+    <hr>
+    <table class="table  table-hover ">
         <thead>
-            <td>#</td>
-            <td>用户名</td>
-            <td>积分</td>
-            <td>会员</td>
-            <td>操作</td>
+            <tr>
+                <th>ID</th>
+                <th>名称</th>
+                <th>操作</th>
+            </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="item in dummyData">
+            <tr ng-repeat="item in dataSource">
                 <td>{{item.id}}</td>
-                <td>{{item.user_name|truncate:15}}</td>
-                <td>{{item.score}}</td>
-                <td>{{item.membership|isMembership}}</td>
+                <td>{{item.name}}</td>
                 <td>
-                   <div class="btn-group" role="group" aria-label="...">
-                      <button type="button" class="btn btn-default" ng-click="detail(item.id)">详情</button>
-                      <button type="button" class="btn btn-primary" ng-click="edit(item.id)">修改</button>
-                      <button type="button" class="btn btn-danger" ng-click="remove(item.id)">删除</button>
-                    </div>
+                    <a href="javascript:;" class="btn btn-primary op-btn" ng-click="edit(item)" >编辑</a>
+                    <a href="javascript:;" class="btn btn-primary op-btn" ng-click="remove(item)" ng-disabled="item.t_status!=1">删除</a>
                 </td>
             </tr>
         </tbody>
     </table>
-    <div class="text-right">
-        <pagination total-items="dataSource.page.data_total" page="dataSource.page.page_num" max-size="8" items-per-page="dataSource.page.page_size" boundary-links="true" rotate="false" on-select-page="changePage(page)" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;"
+    <div class="pull-right">
+        <pagination total-items="taskData.page_info.total_num" page="taskData.page_info.current_pn" max-size="8" items-per-page="10" boundary-links="true" rotate="false" on-select-page="changePage(page)" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;"
         last-text="&raquo;">
         </pagination>
-    </div><% } %>
+    </div>
+</div>
+
+<div class="modal" id="editModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">查看</h4>
+                <hr>
+            </div>
+            <div class="modal-body">
+                {{currentItem.id}} {{currentItem.name}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+            </div>
+        </div>
+    </div>
 </div>

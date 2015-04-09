@@ -11,7 +11,8 @@ var module = angular.module('<%= moduleName %>', [
     'ngResource',
     'ui.bootstrap',
     'ngCommon',
-    'ngSanitize'
+    'ngSanitize'<% if(uiPlugins.indexOf('sweetalert')>-1){ %>,
+    'highcharts-ng'<% } %>
 ]);
 
 module.config([
@@ -29,13 +30,8 @@ module.config([
             templateUrl: __uri('./views/view2/view2.html'),
             controller: 'View2Ctrl'
         })
-        //view3
-        .when('/view3', {
-            templateUrl: __uri('./views/view3/view3.html'),
-            controller: 'View3Ctrl'
-        })
         .otherwise({
-            redirectTo: '/'
+            redirectTo: '/view1'
         });
     }
 ]);

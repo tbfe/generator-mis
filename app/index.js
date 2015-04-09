@@ -85,8 +85,8 @@ module.exports = yeoman.generators.Base.extend({
         }, {
             type: 'list',
             name: 'projectType',
-            choices: ['MIS', 'NOT_MIS'],
-            message: '生成MIS系统还是业务线代码？',
+            choices: ['MIS', '平台化MIS', '业务线'],
+            message: '项目类型',
             store: true,
             default: 0
         }, {
@@ -169,20 +169,10 @@ module.exports = yeoman.generators.Base.extend({
             message: '模块描述:',
             default: ''
         }, {
-            type: 'list',
-            name: 'theme',
-            choices: ['default', 'sidenav'],
-            message: '选择一个主题吧，默认主题为顶部导航，sidebar主题为左侧导航，可到Github项目页预览(方向键或J,K进行选择)',
-            store: true,
-            default: 0,
-            when: function(anwsers) {
-                return anwsers.projectType === 'MIS';
-            }
-        }, {
             type: 'checkbox',
             name: 'uiPlugins',
-            choices: ['sweetalert', 'animate.css'],
-            message: '以下插件按需选择(按空格进行选择)',
+            choices: ['bootstrap-material-design', 'sweetalert', 'animate.css', 'highcharts-ng', 'ztree'],
+            message: '以下插件按需选择(空格进行选择)',
             when: function(anwsers) {
                 return anwsers.projectType === 'MIS';
             }
@@ -192,6 +182,9 @@ module.exports = yeoman.generators.Base.extend({
             this.mis = anwsers;
             this.mis.date = new Date().toISOString().substring(0, 10);
             this.mis.goodbyeMsg = chalk.green('All done!\n') + chalk.white('You are ready to go') + '\n' + chalk.yellow('HAPPY CODING \\(^____^)/');
+
+            //去掉了主题选项，只有默认主题
+            this.mis.theme = 'default';
 
             //防止subModName可能会为undefined
             this.mis.subModName = this.mis.subModName || '';
@@ -281,9 +274,10 @@ module.exports = yeoman.generators.Base.extend({
                 fisConfContent.arguments.at(0).key('pack').key('\'static/' + fileBase + '/app_all.css\'').value('[/static\\/' + fileBase + '\\.*\.css$/]');
                 this.fs.write(this.destinationPath('fis-conf.js'), fisConfFile.toString());
             }
+            //end
 
-            //这里分两条路，MIS路线和业务线
-            if (this.mis.projectType === 'MIS') {
+            //这里分三条路，MIS路线，平台化MIS和业务线
+            if (this.mis.projectType !== '业务线') {
                 //control
                 this.fs.copyTpl(
                     this.templatePath('control/_control.php'),
@@ -295,24 +289,46 @@ module.exports = yeoman.generators.Base.extend({
                 );
 
                 //template
+                if (this.mis.projectType === 'MIS') {
+                    //MIS路线
+                    this.fs.copyTpl(
+                        this.templatePath('template/_template.php'),
+                        this.destinationPath('template/' + fileBase + '/index.php'), {
+                            date: this.mis.date,
+                            author: this.mis.author,
+                            projectName: this._.humanize(this.mis.projectName),
+                            projectFoler: fileBase,
+                            modName: this.mis.modName,
+                            uiPlugins: this.mis.uiPlugins,
+                            theme: this.mis.theme
+                        }
+                    );
+                } else {
+                    //平台化
+                    this.fs.copyTpl(
+                        this.templatePath('template/_template_pplatform.php'),
+                        this.destinationPath('template/' + fileBase + '/index.php'), {
+                            date: this.mis.date,
+                            author: this.mis.author,
+                            projectName: this._.humanize(this.mis.projectName),
+                            projectFoler: fileBase,
+                            modName: this.mis.modName,
+                            uiPlugins: this.mis.uiPlugins,
+                            theme: this.mis.theme
+                        }
+                    );
+                }
+
+                //template/index.js
                 this.fs.copyTpl(
-                    this.templatePath('template/_template.php'),
-                    this.destinationPath('template/' + fileBase + '/index.php'), {
+                    this.templatePath('template/_template.js'),
+                    this.destinationPath('template/' + fileBase + '/index.js'), {
                         date: this.mis.date,
                         author: this.mis.author,
-                        projectName: this._.humanize(this.mis.projectName),
-                        projectFoler: fileBase,
-                        modName: this.mis.modName,
                         uiPlugins: this.mis.uiPlugins,
-                        theme: this.mis.theme
                     }
                 );
 
-                //template/index.js
-                this.fs.copy(
-                    this.templatePath('template/_template.js'),
-                    this.destinationPath('template/' + fileBase + '/index.js')
-                );
                 //template/index.css
                 this.fs.copy(
                     this.templatePath('static/project/views/' + this.mis.theme + '/theme.css'),
@@ -326,7 +342,8 @@ module.exports = yeoman.generators.Base.extend({
                         date: this.mis.date,
                         author: this.mis.author,
                         moduleName: this._.camelize(this.mis.projectName),
-                        modName: this.mis.modName
+                        modName: this.mis.modName,
+                        uiPlugins: this.mis.uiPlugins
                     }
                 );
 
@@ -352,25 +369,6 @@ module.exports = yeoman.generators.Base.extend({
                     }
                 );
 
-                //theme为default时，不需要sidebar 组件
-                if (this.mis.theme !== 'default') {
-                    //sidebar.html
-                    this.fs.copyTpl(
-                        this.templatePath('static/project/directives/sidebar/_sidebar.html'),
-                        this.destinationPath('static/' + fileBase + '/directives/sidebar/sidebar.html'), {
-                            theme: this.mis.theme
-                        }
-                    );
-
-                    //sidebar.js
-                    this.fs.copyTpl(
-                        this.templatePath('static/project/directives/sidebar/_sidebar.js'),
-                        this.destinationPath('static/' + fileBase + '/directives/sidebar/sidebar.js'), {
-                            projectName: this._.camelize(this.mis.projectName)
-                        }
-                    );
-                }
-
                 //navbar directive
                 this.fs.copyTpl(
                     this.templatePath('static/project/directives/navbar/_navbar.html'),
@@ -388,7 +386,7 @@ module.exports = yeoman.generators.Base.extend({
                 );
 
                 // sample views
-                for (var i = 3; i >= 1; i--) {
+                for (var i = 2; i >= 1; i--) {
                     //view template
                     this.fs.copyTpl(
                         this.templatePath('static/project/views/' + this.mis.theme + '/view.html'),
@@ -420,6 +418,7 @@ module.exports = yeoman.generators.Base.extend({
                     );
                 }
             } else {
+                //业务线模板
                 //control
                 this.fs.copyTpl(
                     this.templatePath('control/_control_business.php'),
@@ -461,12 +460,19 @@ module.exports = yeoman.generators.Base.extend({
 
             }
 
+            //static/img
+            this.fs.copy(
+                this.templatePath('static/img/tb-logo.png'),
+                this.destinationPath('static/img/tb-logo.png')
+            );
+
         }
     },
 
     install: function() {
         this.installDependencies({
-            skipInstall: !this.mis.uiPlugins.length, //项目为MIS并且选择了插件才进行安装
+            // skipInstall: !this.mis.uiPlugins.length, //项目为MIS并且选择了插件才进行安装
+            skipInstall: false, //项目为MIS并且选择了插件才进行安装
             callback: function() {
 
                 //如果选择了插件才进行复制
