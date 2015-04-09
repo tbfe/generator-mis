@@ -174,14 +174,14 @@ module.exports = yeoman.generators.Base.extend({
             choices: ['bootstrap-material-design', 'sweetalert', 'animate.css', 'highcharts-ng', 'ztree'],
             message: '以下插件按需选择(空格进行选择)',
             when: function(anwsers) {
-                return anwsers.projectType === 'MIS';
+                return anwsers.projectType !== '业务线';
             }
         }];
 
         this.prompt(prompts, function(anwsers) {
             this.mis = anwsers;
             this.mis.date = new Date().toISOString().substring(0, 10);
-            this.mis.goodbyeMsg = chalk.green('All done!\n') + chalk.white('You are ready to go') + '\n' + chalk.yellow('HAPPY CODING \\(^____^)/');
+            this.mis.goodbyeMsg = chalk.green('All done!\n') + chalk.white('好用再来！') + '\n' + chalk.yellow('HAPPY CODING \\(^____^)/');
 
             //去掉了主题选项，只有默认主题
             this.mis.theme = 'default';
@@ -378,6 +378,30 @@ module.exports = yeoman.generators.Base.extend({
                     }
                 );
 
+                //如果是平台化MIS，则复制sidebar
+                if (this.mis.projectType === '平台化MIS') {
+                    this.fs.copy(
+                        this.templatePath('static/project/directives/sidebar/_sidebar.html'),
+                        this.destinationPath('static/' + fileBase + '/directives/sidebar/sidebar.html')
+                    );
+                    this.fs.copyTpl(
+                        this.templatePath('static/project/directives/sidebar/_sidebar.js'),
+                        this.destinationPath('static/' + fileBase + '/directives/sidebar/sidebar.js'), {
+                            date: this.mis.date,
+                            author: this.mis.author,
+                            projectName: this._.camelize(this.mis.projectName)
+                        }
+                    );
+                    this.fs.copyTpl(
+                        this.templatePath('static/project/directives/sidebar/_sidebar.css'),
+                        this.destinationPath('static/' + fileBase + '/directives/sidebar/sidebar.css'), {
+                            date: this.mis.date,
+                            author: this.mis.author,
+                            projectName: this._.camelize(this.mis.projectName)
+                        }
+                    );
+                }
+
                 this.fs.copyTpl(
                     this.templatePath('static/project/directives/navbar/_navbar.js'),
                     this.destinationPath('static/' + fileBase + '/directives/navbar/navbar.js'), {
@@ -504,8 +528,8 @@ module.exports = yeoman.generators.Base.extend({
         this.config.set('author', this.mis.author);
         this.config.set('projectName', this.mis.projectName);
 
-        //ignore bower_components folder
+        //一些善后工作，ignore bower_components folder, 删除带中文的文件避免编译失败
         //在ocean机器上会执行失败，先去掉
-        // this.spawnCommand('svn propset svn:ignore bower_components .');
+        // this.spawnCommand('rm bower_components/ztree_v3/QUI 框架介绍.txt');
     }
 });
