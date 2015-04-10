@@ -79,6 +79,12 @@ module.exports = function(grunt) {
               },{
                 src: 'bower_components/highcharts-release/highcharts.js',
                 dest: 'static/lib/highcharts/highcharts.js'
+              }<% } %><% if(uiPlugins.indexOf('lodash') > -1) {%>,{
+                src: 'bower_components/lodash/lodash.js',
+                dest: 'static/lib/lodash/lodash.js'
+              }<% } %><% if(uiPlugins.indexOf('moment') > -1) {%>,{
+                src: 'bower_components/moment/moment.js',
+                dest: 'static/lib/moment/moment.js'
               }<% } %>
               ]
             }

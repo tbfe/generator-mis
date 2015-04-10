@@ -52,7 +52,9 @@
         //highchart的angular封装 doc:https://github.com/pablojim/highcharts-ng
         '<%= modName %>/lib/highcharts/highcharts.js',
         '<%= modName %>/lib/highcharts-ng/highcharts-ng.js',<% } %><% if(uiPlugins.indexOf('ztree')>-1){ %>
-        '<%= modName %>/lib/ztree/js/ztree.js',<% } %><% if(uiPlugins.indexOf('bootstrap-material-design')>-1){ %>
+        '<%= modName %>/lib/ztree/js/ztree.js',<% } %><% if(uiPlugins.indexOf('lodash')>-1){ %>
+        '<%= modName %>/lib/lodash/lodash.js',<% } %><% if(uiPlugins.indexOf('moment')>-1){ %>
+        '<%= modName %>/lib/moment/moment.js',<% } %><% if(uiPlugins.indexOf('bootstrap-material-design')>-1){ %>
         '<%= modName %>/lib/arrive/arrive.js',
         '<%= modName %>/lib/bootstrap-material-design/js/ripples.js',
         'automation/lib/bootstrap-material-design/js/material.js',<% } %>

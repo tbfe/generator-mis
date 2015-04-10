@@ -10,7 +10,9 @@
     "sweetalert": "latest"<% } %><% if(uiPlugins.indexOf('highcharts-ng')>-1){ %>,
     "highcharts-ng": "latest",
     "highcharts-release": "latest"<% } %><% if(uiPlugins.indexOf('ztree')>-1){ %>,
-    "ztree_v3": "~3.5"<% } %>
+    "ztree_v3": "~3.5"<% } %><% if(uiPlugins.indexOf('lodash')>-1){ %>,
+    "lodash": "latest"<% } %><% if(uiPlugins.indexOf('moment')>-1){ %>,
+    "moment": "latest"<% } %>
   }
 }
 
