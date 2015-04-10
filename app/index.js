@@ -331,6 +331,13 @@ module.exports = yeoman.generators.Base.extend({
                         this.destinationPath('template/' + fileBase + '/index.css')
                     );
 
+
+                    // 平台化需要resetcss
+                    this.fs.copy(
+                        this.templatePath('static/lib/resetcss.css'),
+                        this.destinationPath('static/lib/resetcss.css')
+                    );
+
                 }
 
                 //template/index.js

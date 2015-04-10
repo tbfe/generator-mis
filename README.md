@@ -80,9 +80,13 @@ PS:在非angular项目中也能使用这个命令来增加widget
 
 ## 预览
 
-下面是MIS界面预览图
+- 下面是MIS界面预览图
 
 ![default theme](asset/screenshot.jpg)
+
+- 下面是平台化MIS界面预览图
+
+![default theme](asset/p-screenshot.jpg)
 
 ## 插件
 
@@ -93,6 +97,12 @@ PS:在非angular项目中也能使用这个命令来增加widget
 - [animate.css](http://daneden.github.io/animate.css/) CSS动画库
 - [highcharts-ng](https://github.com/pablojim/highcharts-ng) Highcharts 图表库的angular封装
 - [ztree](http://www.ztree.me/v3/api.php) 树状插件
+- [lodash](https://lodash.com/) js辅助类库
+- [moment](http://momentjs.com/) js时间处理库
+
+## 已知的问题
+
+- 当选择了ztree插件后，安装到`bower_components`下的源文件有一个带中文的文件叫`QUI 框架介绍.txt`,需手动删除，目前的编译部署机制不支持带中文文件名的文件
 
 ## FAQ
 

@@ -12,6 +12,7 @@
     <link rel="shortcut icon" href="http://static.tieba.baidu.com/tb/favicon.ico" />
     <?php
       echo HTML::combocss(array(
+        '<%= modName %>/lib/resetcss.css',
         '<%= modName %>/lib/bootstrap/css/bootstrap.css',<% if(uiPlugins.indexOf('sweetalert')>-1){ %>
         //sweetalert插件 doc:http://tristanedwards.me/sweetalert
         '<%= modName %>/lib/sweetalert/sweet_alert.css',<% } %><% if(uiPlugins.indexOf('animate.css')>-1){ %>
