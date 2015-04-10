@@ -171,7 +171,7 @@ module.exports = yeoman.generators.Base.extend({
         }, {
             type: 'checkbox',
             name: 'uiPlugins',
-            choices: ['bootstrap-material-design', 'sweetalert', 'animate.css', 'highcharts-ng','lodash','moment', 'ztree'],
+            choices: ['bootstrap-material-design', 'sweetalert', 'animate.css', 'highcharts-ng', 'lodash', 'moment', 'ztree'],
             message: '以下插件按需选择(空格进行选择)',
             when: function(anwsers) {
                 return anwsers.projectType !== '业务线';
@@ -303,6 +303,13 @@ module.exports = yeoman.generators.Base.extend({
                             theme: this.mis.theme
                         }
                     );
+
+                    //template/index.css
+                    this.fs.copy(
+                        this.templatePath('static/project/views/' + this.mis.theme + '/theme.css'),
+                        this.destinationPath('template/' + fileBase + '/index.css')
+                    );
+
                 } else {
                     //平台化
                     this.fs.copyTpl(
@@ -317,6 +324,13 @@ module.exports = yeoman.generators.Base.extend({
                             theme: this.mis.theme
                         }
                     );
+
+                    //template/index.css
+                    this.fs.copy(
+                        this.templatePath('static/project/views/pplatform/theme.css'),
+                        this.destinationPath('template/' + fileBase + '/index.css')
+                    );
+
                 }
 
                 //template/index.js
@@ -327,12 +341,6 @@ module.exports = yeoman.generators.Base.extend({
                         author: this.mis.author,
                         uiPlugins: this.mis.uiPlugins,
                     }
-                );
-
-                //template/index.css
-                this.fs.copy(
-                    this.templatePath('static/project/views/' + this.mis.theme + '/theme.css'),
-                    this.destinationPath('template/' + fileBase + '/index.css')
                 );
 
                 //angular app.js
@@ -400,6 +408,7 @@ module.exports = yeoman.generators.Base.extend({
                             projectName: this._.camelize(this.mis.projectName)
                         }
                     );
+
                 }
 
                 this.fs.copyTpl(
@@ -411,13 +420,15 @@ module.exports = yeoman.generators.Base.extend({
 
                 // sample views
                 for (var i = 2; i >= 1; i--) {
+
                     //view template
                     this.fs.copyTpl(
-                        this.templatePath('static/project/views/' + this.mis.theme + '/view.html'),
+                        this.templatePath('static/project/views/' + this.mis.projectType === 'MIS'?this.mis.theme:'pplatform' + '/view.html'),
                         this.destinationPath('static/' + fileBase + '/views/view' + i + '/view' + i + '.html'), {
                             viewName: 'view' + i
                         }
                     );
+
                     //view controller
                     this.fs.copyTpl(
                         this.templatePath('static/project/views/view.js'),

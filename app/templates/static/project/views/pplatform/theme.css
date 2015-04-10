@@ -1,0 +1,57 @@
+/**
+ * @author <%= author %>
+ * @date <%= date %>
+ * css goes here
+ */
+
+ body {
+    background-color: #a0adbd;
+}
+
+.header {
+    width: 100%;
+    height: 40px;
+    background: #fff;
+}
+
+.banner {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.logo img {
+    margin-top: 5px;
+}
+
+.wrap {
+    margin: 24px auto 0 auto;
+    width: 1200px;
+    background-color: #282c45;
+}
+
+.wrap .aside {
+    float: left;
+    width: 180px;
+    background-color: #282c45;
+}
+
+.wrap .main {
+    float: right;
+    width: 1020px;
+    background-color: #fff;
+    min-height: 734px;
+}
+
+.wrap .footer {
+    clear: both;
+    text-align: center;
+    background: #a0adbd;
+    padding: 20px 0;
+    color: #fff;
+    font-size: 14px;
+    font-family: 'Microsoft Yahei', SimHei, sans-serif;
+}
+
+.wrap .footer a {
+    color: #fff;
+}
