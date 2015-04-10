@@ -423,7 +423,7 @@ module.exports = yeoman.generators.Base.extend({
 
                     //view template
                     this.fs.copyTpl(
-                        this.templatePath('static/project/views/' + this.mis.projectType === 'MIS'?this.mis.theme:'pplatform' + '/view.html'),
+                        this.templatePath('static/project/views/' + (this.mis.projectType === 'MIS'?this.mis.theme:'pplatform') + '/view.html'),
                         this.destinationPath('static/' + fileBase + '/views/view' + i + '/view' + i + '.html'), {
                             viewName: 'view' + i
                         }
