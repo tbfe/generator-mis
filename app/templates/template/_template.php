@@ -57,7 +57,7 @@
         '<%= modName %>/lib/moment/moment.js',<% } %><% if(uiPlugins.indexOf('bootstrap-material-design')>-1){ %>
         '<%= modName %>/lib/arrive/arrive.js',
         '<%= modName %>/lib/bootstrap-material-design/js/ripples.js',
-        'automation/lib/bootstrap-material-design/js/material.js',<% } %>
+        '<%= modName %>/lib/bootstrap-material-design/js/material.js',<% } %>
 
         '<%= modName %>/template/<%= projectFoler %>/index.js'
       ));
