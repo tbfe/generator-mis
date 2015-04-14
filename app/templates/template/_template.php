@@ -36,7 +36,9 @@
         //伴随bootstrap material design 的snackbar 消息提示插件
         '<%= modName %>/lib/snackbarjs/snackbar.js',<% } %><% if(uiPlugins.indexOf('sweetalert')>-1){ %>
         //sweetalert插件 doc:http://tristanedwards.me/sweetalert
-        '<%= modName %>/lib/sweetalert/sweet_alert.js',<% } %>
+        '<%= modName %>/lib/sweetalert/sweet_alert.js',<% } %><% if(uiPlugins.indexOf('lodash')>-1){ %>
+        '<%= modName %>/lib/lodash/lodash.js',<% } %><% if(uiPlugins.indexOf('moment')>-1){ %>
+        '<%= modName %>/lib/moment/moment.js',<% } %>
         'devplatcommon/lib/require/require.js'));
 
       echo HTML::combojs(array(
@@ -52,9 +54,7 @@
         //highchart的angular封装 doc:https://github.com/pablojim/highcharts-ng
         '<%= modName %>/lib/highcharts/highcharts.js',
         '<%= modName %>/lib/highcharts-ng/highcharts-ng.js',<% } %><% if(uiPlugins.indexOf('ztree')>-1){ %>
-        '<%= modName %>/lib/ztree/js/ztree.js',<% } %><% if(uiPlugins.indexOf('lodash')>-1){ %>
-        '<%= modName %>/lib/lodash/lodash.js',<% } %><% if(uiPlugins.indexOf('moment')>-1){ %>
-        '<%= modName %>/lib/moment/moment.js',<% } %><% if(uiPlugins.indexOf('bootstrap-material-design')>-1){ %>
+        '<%= modName %>/lib/ztree/js/ztree.js',<% } %><% if(uiPlugins.indexOf('bootstrap-material-design')>-1){ %>
         '<%= modName %>/lib/arrive/arrive.js',
         '<%= modName %>/lib/bootstrap-material-design/js/ripples.js',
         '<%= modName %>/lib/bootstrap-material-design/js/material.js',<% } %>
