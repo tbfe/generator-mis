@@ -11,6 +11,11 @@
     <title><%= projectName %></title>
     <link rel="shortcut icon" href="http://static.tieba.baidu.com/tb/favicon.ico" />
     <?php
+      echo HTML::combojs(array(<% if(uiPlugins.indexOf('pace')>-1){ %>
+        '<%= modName %>/lib/pace/pace.js'<% } %>
+      ));
+    ?>
+    <?php
       echo HTML::combocss(array(
         '<%= modName %>/lib/bootstrap/css/bootstrap.css',<% if(uiPlugins.indexOf('sweetalert')>-1){ %>
         //sweetalert插件 doc:http://tristanedwards.me/sweetalert

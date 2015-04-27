@@ -85,6 +85,9 @@ module.exports = function(grunt) {
               }<% } %><% if(uiPlugins.indexOf('moment') > -1) {%>,{
                 src: 'bower_components/moment/moment.js',
                 dest: 'static/lib/moment/moment.js'
+              }<% } %><% if(uiPlugins.indexOf('pace') > -1) {%>,{
+                src: 'bower_components/pace/pace.js',
+                dest: 'static/lib/pace/pace.js'
               }<% } %>
               ]
             }

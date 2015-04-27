@@ -171,7 +171,7 @@ module.exports = yeoman.generators.Base.extend({
         }, {
             type: 'checkbox',
             name: 'uiPlugins',
-            choices: ['bootstrap-material-design', 'sweetalert', 'animate.css', 'highcharts-ng', 'lodash', 'moment', 'ztree'],
+            choices: ['bootstrap-material-design', 'sweetalert', 'animate.css', 'highcharts-ng', 'lodash', 'moment','pace', 'ztree'],
             message: '以下插件按需选择(空格进行选择)',
             when: function(anwsers) {
                 return anwsers.projectType !== '业务线';
