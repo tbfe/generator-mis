@@ -1,17 +1,19 @@
-/*
- * @author: <%= author %>
- * @time: <%= date %>
+/**
+ * @file TODO
+ * @author <%= author %>
+ * @since <%= date %>
+ * @class <%= modName %>/widget/<%= name %>
  */
 _.Module.define({
-  path: '<%= modName %>/widget/<%= instanceName %>',
-  requires: [],
-  sub: {
-    initial: function () {
-      this.bindEvents();
-    },
-
-    bindEvents: function () {
-
+    sub: 
+    /** 
+     * @lends <%= modName %>/widget/<%= name %>.prototype
+     */
+    {
+        /**
+         * @constructs
+         */
+        initial: function () {
+        }
     }
-  }
 });
