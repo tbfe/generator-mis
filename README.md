@@ -137,7 +137,7 @@ MIT
 ## CONTRIBUTORS
 
 [![Wayou Liu](https://avatars2.githubusercontent.com/u/3783096?v=3&s=117)](http://wayou.github.io/) | [![Weitao Lee](https://avatars0.githubusercontent.com/u/1782542?v=3&s=117)](https://github.com/luckyadam)| [![Clover Liu](https://avatars0.githubusercontent.com/u/4927775?v=3&s=460)](https://github.com/cloverzero)
-:---:|:---:
+:---:|:---:|:---:
 [Wayou Liu](http://wayou.github.io/) | [Weitao Lee](https://github.com/luckyadam) | [Clover Liu](https://github.com/cloverzero)
 
 ## REFERENCES
