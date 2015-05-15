@@ -1,25 +1,22 @@
 /**
  * @file TODO the file desc.
  * @author <%= author %>
+ * @module <%= modName %>/widget/<%= name %>
  * @since <%= date %>
 */
-F.module('<%= modName %>/widget/<%= name %>', function (require,
-        /**
-         * @exports <%= modName %>/widget/<%= name %>
-         */
-        exports) {
 
 
-    /**
-     * TODO the contractor desc.
-     * @class
-     * @classdesc TODO the class desc.
-     */
-    exports.<%= className %> = function () {
+/**
+ * TODO the contractor desc.
+ * @class
+ * @classdesc TODO the class desc.
+ */
+function <%= className %>() {
 
-    };
+}
 
-    exports.<%= className %>.prototype = {
+<%= className %>.prototype = {
 
-    };
-}, []);
+};
+
+exports.<%= className %> = <%= className %>;
