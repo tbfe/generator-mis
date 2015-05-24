@@ -2,12 +2,12 @@
  * @file TODO
  * @author <%= author %>
  * @since <%= date %>
- * @class <%= modName %>/widget/<%= name %>
+ * @class <%= modName %>_widget_<%= name %>
  */
 _.Module.define({
-    sub: 
-    /** 
-     * @lends <%= modName %>/widget/<%= name %>.prototype
+    sub:
+    /**
+     * @lends <%= modName %>_widget_<%= name %>.prototype
      */
     {
         /**

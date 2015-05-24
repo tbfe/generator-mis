@@ -1,7 +1,7 @@
 <?php
 /*
- * @author: <%= author %>
- * @time: <%= date %>
+ * @author <%= author %>
+ * @since <%= date %>
  */
 class <%= className %> extends PhizView {
     /**
