@@ -1,7 +1,8 @@
 <?php
 /*
- * @author: <%= author %>
- * @time: <%= date %>
+ * the file desc.
+ * @author <%= author %>
+ * @since <%= date %>
  */
 ?>
 

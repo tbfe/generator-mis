@@ -1,7 +1,7 @@
 /**
  * @file TODO the file desc.
  * @author <%= author %>
- * @module <%= modName %>/widget/<%= name %>
+ * @module <%= modName %>_widget_<%= name %>
  * @since <%= date %>
 */
 
