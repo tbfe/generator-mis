@@ -484,7 +484,8 @@ module.exports = yeoman.generators.Base.extend({
                     this.templatePath('template/_template.js'),
                     this.destinationPath('template/' + fileBase + '/' + fileBase + '.js'), {
                         date: this.mis.date,
-                        author: this.mis.author
+                        author: this.mis.author,
+                        uiPlugins: this.mis.uiPlugins
                     }
                 );
 
