@@ -5,11 +5,7 @@
  * @class <%= modName %>_widget_<%= name %>
  */
 _.Module.define({
-    sub:
-    /**
-     * @lends <%= modName %>_widget_<%= name %>.prototype
-     */
-    {
+    sub: {
         /**
          * @constructs
          */
