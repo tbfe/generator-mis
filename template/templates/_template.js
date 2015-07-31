@@ -1,5 +1,5 @@
 /**
+ * @file TODO
  * @author <%= author %>
- * @date <%= date %>
- * js goes here
+ * @since <%= date %>
  */

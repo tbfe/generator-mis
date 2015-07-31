@@ -1,8 +1,8 @@
 <?php
-/*
- * the file desc.
+/**
+ * A simple text describing this file
  * @author <%= author %>
- * @since <%= date %>
+ * @since  <%= date %>
  */
 ?>
 

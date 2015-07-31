@@ -1,19 +1,18 @@
 <?php
-/*
- * the file desc.
+/**
+ * A simple text describing this file
  * @author <%= author %>
- * @since <%= date %>
+ * @since  <%= date %>
  */
 ?>
 
 <?php HTML::scriptStart(); ?>
-  <script>
+<script>
     F.use('<%= modName %>/widget/<%= name %>', function (exports) {/* 你可以修改exports这个名字*/
-      var <%= instanceName %> = new exports.<%= className %>({
-        $el: $('.<%= name %>'),
-          conf: {
-          }
+        var <%= instanceName %> = new exports.<%= className %>({
+            $el: $('.<%= name %>'),
+            conf: {}
         });
-     })
-  </script>
+    });
+</script>
 <?php HTML::scriptEnd(); ?>

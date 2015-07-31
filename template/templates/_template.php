@@ -1,10 +1,9 @@
 <?php
 /**
+ * <%= templateDescription %> template
  * @author <%= author %>
- * @date <%= date %>
- * @description <%= templateDescription %>
+ * @since  <%= date %>
  */
-
 $_layout = $__layout__->load('tb_skeleton', array(
     'common_js_pos' => 'after_body',
     'forum' => $forum,
@@ -17,11 +16,9 @@ $_layout->setBlock('title', '页面标题');
 
 $_layout->startBlock('content');
 ?>
-
-/*
-*your logic goes here
-*/ 
-
+/**
+ * your logic goes here
+ */
 <?php
 $_layout->endBlock('content');
 $_layout->render();

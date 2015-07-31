@@ -5,11 +5,15 @@
  * @class <%= modName %>_widget_<%= name %>
  */
 _.Module.define({
-    sub: {
+    sub: 
+    /** 
+     * @lends <%= modName %>_widget_<%= name %>.prototype
+     */
+    {
         /**
-         * @constructs
+         * 初始化方法
+         * @constructor
          */
-        initial: function () {
-        }
+        initial: function () {}
     }
 });

@@ -1,22 +1,20 @@
 /**
  * @file TODO the file desc.
  * @author <%= author %>
- * @module <%= modName %>_widget_<%= name %>
  * @since <%= date %>
-*/
-
-
-/**
- * TODO the contractor desc.
- * @class
- * @classdesc TODO the class desc.
  */
-function <%= className %>() {
+F.module('<%= modName %>/widget/<%= name %>', function (require,
+    /**
+     * @exports <%= modName %>_widget_<%= name %>
+     */
+    exports) {
 
-}
+   /**
+    * TODO the contractor desc.
+    * @class <%= className %>
+    * @classdesc TODO the class desc.
+    */
+    exports.<%= className %> = function () {};
 
-<%= className %>.prototype = {
-
-};
-
-exports.<%= className %> = <%= className %>;
+    exports.<%= className %>.prototype = {};
+ }, []);

@@ -1,19 +1,5 @@
 /**
+ * @file <%= templateDescription %> template style
  * @author <%= author %>
- * @date <%= date %>
- * css goes here
+ * @since <%= date %>
  */
-
-
-body {
-    background-color: #fff;
-}
-
-/*fix chrome text render problem*/
-body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4 {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif!important;
-}
-
-.navbar-brand img {
-    width: 150px;
-}
