@@ -1,6 +1,6 @@
 {
   "name": "generator-mis",
-  "version": "0.3.13",
+  "version": "0.3.14",
   "description": "百度贴吧MIS生成器",
   "license": "MIT",
   "main": "app/index.js",
