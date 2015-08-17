@@ -70,7 +70,8 @@ module.exports = yeoman.generators.Base.extend({
             this.destinationPath('control/' + fileBase + '.php'), {
                 templateName: this.templateName,
                 date: this.date,
-                author: this.author
+                author: this.author,
+                templateDescription:this.templateDescription
             }
         );
         //template
@@ -87,7 +88,8 @@ module.exports = yeoman.generators.Base.extend({
             this.templatePath('_template.js'),
             this.destinationPath('template/' + fileBase + '/' + fileBase + '.js'), {
                 date: this.date,
-                author: this.author
+                author: this.author,
+                templateDescription: this.templateDescription
             }
         );
 
@@ -96,7 +98,8 @@ module.exports = yeoman.generators.Base.extend({
             this.templatePath('_template.css'),
             this.destinationPath('template/' + fileBase + '/' + fileBase + '.css'), {
                 date: this.date,
-                author: this.author
+                author: this.author,
+                templateDescription:this.templateDescription
             }
         );
     },
