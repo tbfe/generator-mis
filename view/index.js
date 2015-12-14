@@ -115,7 +115,9 @@ module.exports = yeoman.generators.Base.extend({
                 this.templatePath('view.css'),
                 this.destinationPath('static/' + projectFolder + '/views/' + fileBase + '/' + fileBase + '.css'), {
                     author: this.author,
-                    date: this.date
+                    date: this.date,
+                    name: fileBase, //view name
+                    projectName: this._.camelize(this.projectName)
                 }
             );
         }
